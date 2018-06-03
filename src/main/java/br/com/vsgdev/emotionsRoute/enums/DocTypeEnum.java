@@ -1,4 +1,4 @@
-package enums;
+package br.com.vsgdev.emotionsRoute.enums;
 
 public enum DocTypeEnum {
 

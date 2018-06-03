@@ -1,4 +1,4 @@
-package model;
+package br.com.vsgdev.emotionsRoute.model;
 
 import javax.validation.constraints.NotNull;
 

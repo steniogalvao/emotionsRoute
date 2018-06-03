@@ -1,4 +1,4 @@
-package model;
+package br.com.vsgdev.emotionsRoute.model;
 
 import java.time.LocalDateTime;
 
@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
-import enums.PaymentMethodEnum;
+import br.com.vsgdev.emotionsRoute.enums.PaymentMethodEnum;
 
 public class Purchase {
 

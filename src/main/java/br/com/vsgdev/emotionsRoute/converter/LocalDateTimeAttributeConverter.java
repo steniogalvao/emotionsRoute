@@ -1,4 +1,4 @@
-package converter;
+package br.com.vsgdev.emotionsRoute.converter;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;

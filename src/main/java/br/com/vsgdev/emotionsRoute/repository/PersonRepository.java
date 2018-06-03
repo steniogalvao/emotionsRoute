@@ -1,9 +1,9 @@
-package repository;
+package br.com.vsgdev.emotionsRoute.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import model.Person;
+import br.com.vsgdev.emotionsRoute.model.Person;
 
 @Repository
 public interface PersonRepository extends CrudRepository<Person, Long> {

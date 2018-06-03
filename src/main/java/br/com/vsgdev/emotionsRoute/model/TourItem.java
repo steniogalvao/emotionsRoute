@@ -1,4 +1,4 @@
-package model;
+package br.com.vsgdev.emotionsRoute.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

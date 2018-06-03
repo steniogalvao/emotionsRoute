@@ -1,9 +1,9 @@
-package repository;
+package br.com.vsgdev.emotionsRoute.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import model.Agency;
+import br.com.vsgdev.emotionsRoute.model.Agency;
 
 @Repository
 public interface AgencyReposirory extends CrudRepository<Agency, Long>{

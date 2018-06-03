@@ -1,4 +1,4 @@
-package model;
+package br.com.vsgdev.emotionsRoute.model;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
-import enums.UserTypeEnum;
+import br.com.vsgdev.emotionsRoute.enums.UserTypeEnum;
 
 public abstract class User {
 
@@ -38,6 +38,8 @@ public abstract class User {
 	private UserTypeEnum userType;
 
 	private double rate;
+
+	private boolean active;
 
 	public int getId() {
 		return Id;
@@ -101,6 +103,14 @@ public abstract class User {
 
 	public void setRate( double rate ) {
 		this.rate = rate;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive( boolean active ) {
+		this.active = active;
 	}
 
 }
