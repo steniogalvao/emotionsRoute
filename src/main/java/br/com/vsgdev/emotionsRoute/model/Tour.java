@@ -2,15 +2,18 @@ package br.com.vsgdev.emotionsRoute.model;
 
 import java.util.List;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
+@Entity
 public class Tour {
 
 	@Id
 	@GeneratedValue
-	private int Id;
+	private Long Id;
 	@NotNull
 	private String name;
 
@@ -20,15 +23,18 @@ public class Tour {
 	@NotNull
 	private String city;
 
+	@ElementCollection
 	private List<String> pictures;
 
 	private double rate;
 
-	public int getId() {
+	private boolean active;
+
+	public Long getId() {
 		return Id;
 	}
 
-	public void setId( int id ) {
+	public void setId( Long id ) {
 		Id = id;
 	}
 
@@ -70,6 +76,14 @@ public class Tour {
 
 	public void setRate( double rate ) {
 		this.rate = rate;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive( boolean active ) {
+		this.active = active;
 	}
 
 }

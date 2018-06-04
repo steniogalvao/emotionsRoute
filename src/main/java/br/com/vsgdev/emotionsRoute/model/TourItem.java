@@ -3,16 +3,18 @@ package br.com.vsgdev.emotionsRoute.model;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
+@Entity
 public class TourItem {
 
 	@Id
 	@GeneratedValue
-	private int Id;
+	private Long Id;
 
 	@NotNull
 	@OneToOne
@@ -31,11 +33,13 @@ public class TourItem {
 	@OneToOne
 	private User responsable;
 
-	public int getId() {
+	private boolean active;
+
+	public Long getId() {
 		return Id;
 	}
 
-	public void setId( int id ) {
+	public void setId( Long id ) {
 		Id = id;
 	}
 
@@ -77,6 +81,14 @@ public class TourItem {
 
 	public void setResponsable( User responsable ) {
 		this.responsable = responsable;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive( boolean active ) {
+		this.active = active;
 	}
 
 }

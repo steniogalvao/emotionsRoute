@@ -2,6 +2,7 @@ package br.com.vsgdev.emotionsRoute.model;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -9,11 +10,12 @@ import javax.validation.constraints.NotNull;
 
 import br.com.vsgdev.emotionsRoute.enums.PaymentMethodEnum;
 
+@Entity
 public class Purchase {
 
 	@Id
 	@GeneratedValue
-	private int Id;
+	private Long Id;
 
 	@NotNull
 	private LocalDateTime purchaseDate;
@@ -36,11 +38,13 @@ public class Purchase {
 	@NotNull
 	private PaymentMethodEnum paymentMethod;
 
-	public int getId() {
+	private boolean canceled = false;
+
+	public Long getId() {
 		return Id;
 	}
 
-	public void setId( int id ) {
+	public void setId( Long id ) {
 		Id = id;
 	}
 
@@ -98,6 +102,14 @@ public class Purchase {
 
 	public void setPaymentMethod( PaymentMethodEnum paymentMethod ) {
 		this.paymentMethod = paymentMethod;
+	}
+
+	public boolean isCanceled() {
+		return canceled;
+	}
+
+	public void setCanceled( boolean canceled ) {
+		this.canceled = canceled;
 	}
 
 }

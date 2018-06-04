@@ -2,32 +2,41 @@ package br.com.vsgdev.emotionsRoute.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import br.com.vsgdev.emotionsRoute.enums.UserTypeEnum;
 
+@Entity
+@Inheritance( strategy = InheritanceType.TABLE_PER_CLASS )
 public abstract class User {
 
 	@Id
 	@GeneratedValue
-	private int Id;
+	private Long Id;
 
 	@NotNull
 	private String name;
 
 	@NotNull
+	@ElementCollection
 	private List<String> phones;
 
 	@NotNull
 	private String email;
 
 	@NotNull
-	@OneToOne
+	@OneToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
 	private Address address;
 
 	@NotNull
@@ -41,11 +50,11 @@ public abstract class User {
 
 	private boolean active;
 
-	public int getId() {
+	public Long getId() {
 		return Id;
 	}
 
-	public void setId( int id ) {
+	public void setId( Long id ) {
 		Id = id;
 	}
 

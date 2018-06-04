@@ -1,7 +1,9 @@
 package br.com.vsgdev.emotionsRoute.model;
 
+import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 
+@Entity
 public class Agency extends User {
 
 	@NotNull
