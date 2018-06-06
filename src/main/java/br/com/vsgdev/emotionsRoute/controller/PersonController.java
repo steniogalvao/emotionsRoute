@@ -2,6 +2,8 @@ package br.com.vsgdev.emotionsRoute.controller;
 
 import java.util.Optional;
 
+import static br.com.vsgdev.emotionsRoute.utils.StaticStrings.ID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,7 +31,7 @@ public class PersonController extends BaseController {
 		if ( response.isPresent() ) {
 			return response.get();
 		} else {
-			throw new NotFoundEntity( String.valueOf( personId ) );
+			throw new NotFoundEntity(ID, String.valueOf( personId ) );
 		}
 	}
 
@@ -44,7 +46,7 @@ public class PersonController extends BaseController {
 	@PutMapping( "/person" )
 	public Person putPerson( @Validated @RequestBody Person person ) throws NotFoundEntity {
 		if ( person.getId() == null ) {
-			throw new NotFoundEntity( "null" );
+			throw new NotFoundEntity(ID, "null" );
 		}
 		Optional<Person> response = personRepository.findById( person.getId() );
 		person.setPassword( response.get().getPassword() );
@@ -55,7 +57,7 @@ public class PersonController extends BaseController {
 	public void deletePerson( @PathVariable Long personId ) throws NotFoundEntity {
 		Optional<Person> response = personRepository.findById( personId );
 		if ( !response.isPresent() ) {
-			throw new NotFoundEntity( String.valueOf( personId ) );
+			throw new NotFoundEntity(ID, String.valueOf( personId ) );
 		} else {
 			Person person = response.get();
 			person.setActive( false );

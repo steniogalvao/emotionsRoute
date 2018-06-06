@@ -1,5 +1,7 @@
 package br.com.vsgdev.emotionsRoute.controller;
 
+import static br.com.vsgdev.emotionsRoute.utils.StaticStrings.ID;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,7 @@ public class TourController {
 		if ( response.isPresent() ) {
 			return response.get();
 		} else {
-			throw new NotFoundEntity( String.valueOf( tourId ) );
+			throw new NotFoundEntity( ID, String.valueOf( tourId ) );
 		}
 	}
 
@@ -40,7 +42,7 @@ public class TourController {
 	@PutMapping( "/tour" )
 	public Tour putTour( @Validated @RequestBody Tour tour ) throws NotFoundEntity {
 		if ( tour.getId() == null ) {
-			throw new NotFoundEntity( "null" );
+			throw new NotFoundEntity( ID, "null" );
 		} else {
 			return tourRepository.save( tour );
 		}
@@ -50,7 +52,7 @@ public class TourController {
 	public void deleteTour( @PathVariable Long tourId ) throws NotFoundEntity {
 		Optional<Tour> response = tourRepository.findById( tourId );
 		if ( !response.isPresent() ) {
-			throw new NotFoundEntity( String.valueOf( tourId ) );
+			throw new NotFoundEntity( ID, String.valueOf( tourId ) );
 		} else {
 			Tour tour = response.get();
 			tour.setActive( false );

@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class NotFoundEntity extends Exception {
 	static final long serialVersionUID = -3387516993334229948L;
 
-	public NotFoundEntity( String message ) {
-		super( "Entidade com o id '" + message + "' não encontrada" );
+	public NotFoundEntity( String field, String message ) {
+		super( "Entidade com o '" + field + "' '" + message + "' não encontrada" );
 	}
 
 }

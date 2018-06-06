@@ -1,5 +1,7 @@
 package br.com.vsgdev.emotionsRoute.controller;
 
+import static br.com.vsgdev.emotionsRoute.utils.StaticStrings.ID;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,7 @@ public class TourItemController {
 		if ( response.isPresent() ) {
 			return response.get();
 		} else {
-			throw new NotFoundEntity( String.valueOf( tourItemId ) );
+			throw new NotFoundEntity( ID, String.valueOf( tourItemId ) );
 		}
 	}
 
@@ -40,7 +42,7 @@ public class TourItemController {
 	@PutMapping( "/tourItemId" )
 	public TourItem putTourItem( @Validated @RequestBody TourItem tourItem ) throws NotFoundEntity {
 		if ( tourItem.getId() == null ) {
-			throw new NotFoundEntity( "null" );
+			throw new NotFoundEntity( ID, "null" );
 		}
 		return tourItemRepository.save( tourItem );
 	}
@@ -49,7 +51,7 @@ public class TourItemController {
 	public void deleteTourItem( @PathVariable Long tourItemId ) throws NotFoundEntity {
 		Optional<TourItem> response = tourItemRepository.findById( tourItemId );
 		if ( !response.isPresent() ) {
-			throw new NotFoundEntity( String.valueOf( tourItemId ) );
+			throw new NotFoundEntity( ID, String.valueOf( tourItemId ) );
 		} else {
 			TourItem tourItem = response.get();
 			tourItem.setActive( false );

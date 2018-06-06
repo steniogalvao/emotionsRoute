@@ -1,13 +1,18 @@
 package br.com.vsgdev.emotionsRoute.repository;
 
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import br.com.vsgdev.emotionsRoute.model.Agency;
-import br.com.vsgdev.emotionsRoute.model.Person;
 
 @Repository
-public interface AgencyRepository extends CrudRepository<Agency, Long>{
+public interface AgencyRepository extends CrudRepository<Agency, Long> {
 
-	Person findByIdAndActive( Long id, boolean active );
+	Agency findByIdAndActive( Long id, boolean active );
+
+	Agency findByCnpj( String cnpj );
+
+	List<Agency> findAllByNameContainingIgnoreCaseOrderByName( String name );
 }

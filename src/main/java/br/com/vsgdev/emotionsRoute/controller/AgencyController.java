@@ -1,5 +1,9 @@
 package br.com.vsgdev.emotionsRoute.controller;
 
+import static br.com.vsgdev.emotionsRoute.utils.StaticStrings.CNPJ;
+import static br.com.vsgdev.emotionsRoute.utils.StaticStrings.ID;
+
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.vsgdev.emotionsRoute.exception.MandatoryField;
@@ -29,8 +34,23 @@ public class AgencyController {
 		if ( response.isPresent() ) {
 			return response.get();
 		} else {
-			throw new NotFoundEntity( String.valueOf( agencyId ) );
+			throw new NotFoundEntity( ID, String.valueOf( agencyId ) );
 		}
+	}
+
+	@GetMapping( "/agency/cnpj" )
+	public Agency getAgencyByCnpj( @RequestParam( value = "cnpj", required = true ) String cnpj ) throws NotFoundEntity {
+		Agency response = agencyRepository.findByCnpj( cnpj );
+		if ( response != null ) {
+			return response;
+		} else {
+			throw new NotFoundEntity( CNPJ, cnpj );
+		}
+	}
+
+	@GetMapping( "/agency/name" )
+	public List<Agency> getAgencyByName( @RequestParam( value = "name", required = true ) String name ) throws NotFoundEntity {
+		return agencyRepository.findAllByNameContainingIgnoreCaseOrderByName( name );
 	}
 
 	@PostMapping( "/agency" )
@@ -44,7 +64,7 @@ public class AgencyController {
 	@PutMapping( "/agency" )
 	public Agency putAgency( @Validated @RequestBody Agency agency ) throws NotFoundEntity {
 		if ( agency.getId() == null ) {
-			throw new NotFoundEntity( "null" );
+			throw new NotFoundEntity( ID, "null" );
 		}
 		Optional<Agency> response = agencyRepository.findById( agency.getId() );
 		agency.setPassword( response.get().getPassword() );
@@ -55,7 +75,7 @@ public class AgencyController {
 	public void deleteAgency( @PathVariable Long agencyId ) throws NotFoundEntity {
 		Optional<Agency> response = agencyRepository.findById( agencyId );
 		if ( !response.isPresent() ) {
-			throw new NotFoundEntity( String.valueOf( agencyId ) );
+			throw new NotFoundEntity( ID, String.valueOf( agencyId ) );
 		} else {
 			Agency agency = response.get();
 			agency.setActive( false );

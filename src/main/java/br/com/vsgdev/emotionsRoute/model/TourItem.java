@@ -14,7 +14,7 @@ public class TourItem {
 
 	@Id
 	@GeneratedValue
-	private Long Id;
+	private Long id;
 
 	@NotNull
 	@OneToOne
@@ -36,11 +36,11 @@ public class TourItem {
 	private boolean active = true;
 
 	public Long getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId( Long id ) {
-		Id = id;
+		this.id = id;
 	}
 
 	public Tour getTour() {

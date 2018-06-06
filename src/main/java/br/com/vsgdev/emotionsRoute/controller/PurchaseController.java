@@ -1,5 +1,7 @@
 package br.com.vsgdev.emotionsRoute.controller;
 
+import static br.com.vsgdev.emotionsRoute.utils.StaticStrings.ID;
+
 import java.util.Optional;
 
 import javax.validation.ConstraintViolationException;
@@ -35,7 +37,7 @@ public class PurchaseController {
 		if ( response.isPresent() ) {
 			return response.get();
 		} else {
-			throw new NotFoundEntity( String.valueOf( purchaseId ) );
+			throw new NotFoundEntity( ID, String.valueOf( purchaseId ) );
 		}
 	}
 
@@ -51,7 +53,7 @@ public class PurchaseController {
 	@PutMapping( "/purchase" )
 	public Purchase putPurchase( @Validated @RequestBody Purchase purchase ) throws NotFoundEntity {
 		if ( purchase.getId() == null ) {
-			throw new NotFoundEntity( "null" );
+			throw new NotFoundEntity( ID, "null" );
 		} else {
 			return purchaseRepository.save( purchase );
 		}
@@ -61,7 +63,7 @@ public class PurchaseController {
 	public void cancelPurchase( @PathVariable Long purchaseId ) throws NotFoundEntity {
 		Optional<Purchase> response = purchaseRepository.findById( purchaseId );
 		if ( !response.isPresent() ) {
-			throw new NotFoundEntity( String.valueOf( purchaseId ) );
+			throw new NotFoundEntity( ID, String.valueOf( purchaseId ) );
 		} else {
 			Purchase purchase = response.get();
 			purchase.setCanceled( true );
