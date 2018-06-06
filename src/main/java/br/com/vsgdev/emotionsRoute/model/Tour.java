@@ -28,7 +28,7 @@ public class Tour {
 
 	private double rate;
 
-	private boolean active;
+	private boolean active = true;
 
 	public Long getId() {
 		return Id;

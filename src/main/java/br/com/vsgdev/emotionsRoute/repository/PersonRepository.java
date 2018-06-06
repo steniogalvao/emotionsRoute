@@ -8,4 +8,5 @@ import br.com.vsgdev.emotionsRoute.model.Person;
 @Repository
 public interface PersonRepository extends CrudRepository<Person, Long> {
 
+	Person findByIdAndActive( Long id, boolean active );
 }

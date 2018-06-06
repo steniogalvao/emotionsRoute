@@ -33,7 +33,7 @@ public class TourItem {
 	@OneToOne
 	private User responsable;
 
-	private boolean active;
+	private boolean active = true;
 
 	public Long getId() {
 		return Id;

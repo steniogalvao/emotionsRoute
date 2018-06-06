@@ -15,6 +15,9 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import br.com.vsgdev.emotionsRoute.enums.UserTypeEnum;
 
 @Entity
@@ -23,7 +26,7 @@ public abstract class User {
 
 	@Id
 	@GeneratedValue
-	private Long Id;
+	private Long id;
 
 	@NotNull
 	private String name;
@@ -39,7 +42,7 @@ public abstract class User {
 	@OneToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
 	private Address address;
 
-	@NotNull
+	@JsonProperty( access = Access.WRITE_ONLY )
 	private String password;
 
 	@NotNull
@@ -48,14 +51,14 @@ public abstract class User {
 
 	private double rate;
 
-	private boolean active;
+	private boolean active = true;
 
 	public Long getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId( Long id ) {
-		Id = id;
+		this.id = id;
 	}
 
 	public String getName() {

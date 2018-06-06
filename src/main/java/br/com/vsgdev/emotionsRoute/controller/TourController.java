@@ -2,36 +2,27 @@ package br.com.vsgdev.emotionsRoute.controller;
 
 import java.util.Optional;
 
-import javax.validation.ConstraintViolationException;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.vsgdev.emotionsRoute.exception.MandatoryField;
 import br.com.vsgdev.emotionsRoute.exception.NotFoundEntity;
 import br.com.vsgdev.emotionsRoute.model.Tour;
-import br.com.vsgdev.emotionsRoute.model.Tour;
 import br.com.vsgdev.emotionsRoute.repository.TourRepository;
-import br.com.vsgdev.emotionsRoute.utils.ConverterUtils;
 
 @RestController
-@RequestMapping( "/tour" )
 public class TourController {
 
 	@Autowired
 	private TourRepository tourRepository;
 
-	@Autowired
-	private ConverterUtils converterUtils;
-
-	@GetMapping
+	@GetMapping( "/tour/{tourId}" )
 	public Tour getTour( @PathVariable Long tourId ) throws NotFoundEntity {
 		Optional<Tour> response = tourRepository.findById( tourId );
 		if ( response.isPresent() ) {
@@ -41,21 +32,17 @@ public class TourController {
 		}
 	}
 
-	@PostMapping
-	public Tour postTour( @RequestBody Tour tour ) throws MandatoryField {
-		try {
-			return tourRepository.save( tour );
-		} catch ( ConstraintViolationException e ) {
-			throw new MandatoryField( converterUtils.nullFields( e ) );
-		}
+	@PostMapping( "/tour" )
+	public Tour postTour( @Validated @RequestBody Tour tour ) {
+		return tourRepository.save( tour );
 	}
 
-	@PutMapping
-	public Tour putTour( @RequestBody Tour tour ) throws MandatoryField {
-		try {
+	@PutMapping( "/tour" )
+	public Tour putTour( @Validated @RequestBody Tour tour ) throws NotFoundEntity {
+		if ( tour.getId() == null ) {
+			throw new NotFoundEntity( "null" );
+		} else {
 			return tourRepository.save( tour );
-		} catch ( ConstraintViolationException e ) {
-			throw new MandatoryField( converterUtils.nullFields( e ) );
 		}
 	}
 

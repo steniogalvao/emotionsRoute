@@ -34,12 +34,20 @@ public class PersonController extends BaseController {
 	}
 
 	@PostMapping( "/person" )
-	public Person postPerson( @Validated @RequestBody Person person ) {
+	public Person postPerson( @Validated @RequestBody Person person ) throws MandatoryField {
+		if ( person.getPassword() == null || person.getPassword().isEmpty() ) {
+			throw new MandatoryField( "password" );
+		}
 		return personRepository.save( person );
 	}
 
 	@PutMapping( "/person" )
-	public Person putPerson( @Validated @RequestBody Person person ) throws MandatoryField {
+	public Person putPerson( @Validated @RequestBody Person person ) throws NotFoundEntity {
+		if ( person.getId() == null ) {
+			throw new NotFoundEntity( "null" );
+		}
+		Optional<Person> response = personRepository.findById( person.getId() );
+		person.setPassword( response.get().getPassword() );
 		return personRepository.save( person );
 	}
 
