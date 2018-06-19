@@ -1,12 +1,18 @@
 package br.com.vsgdev.emotionsRoute.controller;
 
 import static br.com.vsgdev.emotionsRoute.utils.StaticStrings.CNPJ;
+import static br.com.vsgdev.emotionsRoute.utils.StaticStrings.EMAIL;
 import static br.com.vsgdev.emotionsRoute.utils.StaticStrings.ID;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,12 +27,18 @@ import br.com.vsgdev.emotionsRoute.exception.MandatoryField;
 import br.com.vsgdev.emotionsRoute.exception.NotFoundEntity;
 import br.com.vsgdev.emotionsRoute.model.Agency;
 import br.com.vsgdev.emotionsRoute.repository.AgencyRepository;
+import br.com.vsgdev.emotionsRoute.repository.PersonRepository;
+import br.com.vsgdev.emotionsRoute.utils.ConverterUtils;
 
 @RestController
-public class AgencyController {
+public class AgencyController extends BaseController {
 
 	@Autowired
 	private AgencyRepository agencyRepository;
+	@Autowired
+	private PersonRepository personRepository;
+	@Autowired
+	private ConverterUtils converterUtils;
 
 	@GetMapping( "/agency/{agencyId}" )
 	public Agency getAgency( @PathVariable Long agencyId ) throws NotFoundEntity {
@@ -54,11 +66,16 @@ public class AgencyController {
 	}
 
 	@PostMapping( "/agency" )
-	public Agency postAgency( @Validated @RequestBody Agency agency ) throws MandatoryField {
+	public ResponseEntity<Object> postAgency( @Validated @RequestBody Agency agency ) throws MandatoryField, ConstraintViolationException {
 		if ( agency.getPassword() == null || agency.getPassword().isEmpty() ) {
 			throw new MandatoryField( "password" );
 		}
-		return agencyRepository.save( agency );
+		Map<String, String> violationsMap = checkUniqueFields( agency );
+		if ( !violationsMap.isEmpty() ) {
+			return new ResponseEntity<Object>( converterUtils.errorReturn( "Already exists", violationsMap ), HttpStatus.BAD_REQUEST );
+		}
+		Agency agencySaved = agencyRepository.save( agency );
+		return new ResponseEntity<Object>( agencySaved, HttpStatus.OK );
 	}
 
 	@PutMapping( "/agency" )
@@ -81,6 +98,17 @@ public class AgencyController {
 			agency.setActive( false );
 			agencyRepository.save( agency );
 		}
+	}
+
+	private Map<String, String> checkUniqueFields( Agency agency ) {
+		HashMap<String, String> uniqueFieldsMap = new HashMap<>();
+		if ( agencyRepository.existsByEmail( agency.getEmail() ) || personRepository.existsByEmail( agency.getEmail() ) ) {
+			uniqueFieldsMap.put( EMAIL, agency.getEmail() );
+		}
+		if ( agencyRepository.existsByCnpj( agency.getCnpj() ) ) {
+			uniqueFieldsMap.put( CNPJ, agency.getCnpj() );
+		}
+		return uniqueFieldsMap;
 	}
 
 }

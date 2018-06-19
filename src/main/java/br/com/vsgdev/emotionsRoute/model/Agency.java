@@ -1,5 +1,6 @@
 package br.com.vsgdev.emotionsRoute.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 
@@ -7,6 +8,7 @@ import javax.validation.constraints.NotNull;
 public class Agency extends User {
 
 	@NotNull
+	@Column( unique = true )
 	private String cnpj;
 
 	public String getCnpj() {

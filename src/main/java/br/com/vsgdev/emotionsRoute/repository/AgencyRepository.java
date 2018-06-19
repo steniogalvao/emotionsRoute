@@ -15,4 +15,8 @@ public interface AgencyRepository extends CrudRepository<Agency, Long> {
 	Agency findByCnpj( String cnpj );
 
 	List<Agency> findAllByNameContainingIgnoreCaseOrderByName( String name );
+
+	boolean existsByEmail( String email );
+
+	boolean existsByCnpj( String cnpj );
 }

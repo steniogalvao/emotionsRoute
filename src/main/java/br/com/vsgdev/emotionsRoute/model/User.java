@@ -3,6 +3,7 @@ package br.com.vsgdev.emotionsRoute.model;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -36,6 +37,7 @@ public abstract class User {
 	private List<String> phones;
 
 	@NotNull
+	@Column( unique = true )
 	private String email;
 
 	@NotNull

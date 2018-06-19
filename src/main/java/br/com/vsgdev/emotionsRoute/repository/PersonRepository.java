@@ -9,4 +9,9 @@ import br.com.vsgdev.emotionsRoute.model.Person;
 public interface PersonRepository extends CrudRepository<Person, Long> {
 
 	Person findByIdAndActive( Long id, boolean active );
+
+	boolean existsByEmail( String email );
+
+	boolean existsByDocNumberAndDocType( String docNumber, String docType );
+
 }

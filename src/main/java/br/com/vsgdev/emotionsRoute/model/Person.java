@@ -3,10 +3,13 @@ package br.com.vsgdev.emotionsRoute.model;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import br.com.vsgdev.emotionsRoute.enums.DocTypeEnum;
 
+@Table( uniqueConstraints = @UniqueConstraint( columnNames = { "docType", "docNumber" } ) )
 @Entity
 public class Person extends User {
 
