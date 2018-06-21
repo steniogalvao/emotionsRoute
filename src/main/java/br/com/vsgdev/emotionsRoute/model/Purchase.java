@@ -16,8 +16,7 @@ public class Purchase {
 	@Id
 	@GeneratedValue
 	private Long Id;
-
-	@NotNull
+	
 	private LocalDateTime purchaseDate;
 
 	@NotNull

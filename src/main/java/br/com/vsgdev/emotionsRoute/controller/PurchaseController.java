@@ -2,9 +2,8 @@ package br.com.vsgdev.emotionsRoute.controller;
 
 import static br.com.vsgdev.emotionsRoute.utils.StaticStrings.ID;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
-
-import javax.validation.ConstraintViolationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -16,11 +15,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.vsgdev.emotionsRoute.exception.MandatoryField;
 import br.com.vsgdev.emotionsRoute.exception.NotFoundEntity;
 import br.com.vsgdev.emotionsRoute.model.Purchase;
 import br.com.vsgdev.emotionsRoute.repository.PurchaseRepository;
-import br.com.vsgdev.emotionsRoute.utils.ConverterUtils;
 
 @RestController
 public class PurchaseController {
@@ -28,10 +25,7 @@ public class PurchaseController {
 	@Autowired
 	private PurchaseRepository purchaseRepository;
 
-	@Autowired
-	private ConverterUtils converterUtils;
-
-	@GetMapping( "/purchase{purchaseId}" )
+	@GetMapping( "/purchase{purchadisseId}" )
 	public Purchase getPurchase( @PathVariable Long purchaseId ) throws NotFoundEntity {
 		Optional<Purchase> response = purchaseRepository.findById( purchaseId );
 		if ( response.isPresent() ) {
@@ -42,20 +36,18 @@ public class PurchaseController {
 	}
 
 	@PostMapping( "/purchase" )
-	public Purchase postPurchase( @Validated @RequestBody Purchase purchase ) throws MandatoryField {
-		try {
-			return purchaseRepository.save( purchase );
-		} catch ( ConstraintViolationException e ) {
-			throw new MandatoryField( converterUtils.nullFields( e ) );
-		}
+	public Purchase postPurchase( @Validated @RequestBody Purchase purchase ) throws NotFoundEntity {
+		purchase.setPurchaseDate( LocalDateTime.now() );
+		return purchaseRepository.save( purchase );
 	}
 
 	@PutMapping( "/purchase" )
 	public Purchase putPurchase( @Validated @RequestBody Purchase purchase ) throws NotFoundEntity {
-		if ( purchase.getId() == null ) {
-			throw new NotFoundEntity( ID, "null" );
-		} else {
+		if ( purchaseRepository.existsById( purchase.getId() ) ) {
+			purchase.setPurchaseDate( LocalDateTime.now() );
 			return purchaseRepository.save( purchase );
+		} else {
+			throw new NotFoundEntity( ID, String.valueOf( purchase.getId() ) );
 		}
 	}
 
