@@ -24,7 +24,7 @@ public class TourItem {
 	private BigDecimal price;
 
 	@NotNull
-	private LocalDateTime duration;
+	private String duration;
 
 	@NotNull
 	private String includeDescription;
@@ -59,11 +59,11 @@ public class TourItem {
 		this.price = price;
 	}
 
-	public LocalDateTime getDuration() {
+	public String getDuration() {
 		return duration;
 	}
 
-	public void setDuration( LocalDateTime duration ) {
+	public void setDuration( String duration ) {
 		this.duration = duration;
 	}
 
