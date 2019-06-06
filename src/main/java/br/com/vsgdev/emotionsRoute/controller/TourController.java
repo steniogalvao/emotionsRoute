@@ -41,14 +41,14 @@ public class TourController {
 
 	@PutMapping( "/tour" )
 	public Tour putTour( @Validated @RequestBody Tour tour ) throws NotFoundEntity {
-		if ( tour.getId() == null ) {
-			throw new NotFoundEntity( ID, "null" );
-		} else {
+		if ( tourRepository.existsById( tour.getId() ) ) {
 			return tourRepository.save( tour );
+		} else {
+			throw new NotFoundEntity( ID, String.valueOf( tour.getId() ) );
 		}
 	}
 
-	@DeleteMapping
+	@DeleteMapping( "/tour/{tourId}" )
 	public void deleteTour( @PathVariable Long tourId ) throws NotFoundEntity {
 		Optional<Tour> response = tourRepository.findById( tourId );
 		if ( !response.isPresent() ) {

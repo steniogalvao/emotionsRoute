@@ -34,20 +34,21 @@ public class TourItemController {
 		}
 	}
 
-	@PostMapping( "/tourItemId" )
+	@PostMapping( "/tourItem" )
 	public TourItem postTourItem( @Validated @RequestBody TourItem tourItem ) {
 		return tourItemRepository.save( tourItem );
 	}
 
-	@PutMapping( "/tourItemId" )
+	@PutMapping( "/tourItem" )
 	public TourItem putTourItem( @Validated @RequestBody TourItem tourItem ) throws NotFoundEntity {
-		if ( tourItem.getId() == null ) {
-			throw new NotFoundEntity( ID, "null" );
+		if ( tourItemRepository.existsById( tourItem.getId() ) ) {
+			return tourItemRepository.save( tourItem );
+		} else {
+			throw new NotFoundEntity( ID, String.valueOf( tourItem.getId() ) );
 		}
-		return tourItemRepository.save( tourItem );
 	}
 
-	@DeleteMapping( "/tourItem" )
+	@DeleteMapping( "/tourItem/{tourItemId}" )
 	public void deleteTourItem( @PathVariable Long tourItemId ) throws NotFoundEntity {
 		Optional<TourItem> response = tourItemRepository.findById( tourItemId );
 		if ( !response.isPresent() ) {

@@ -7,5 +7,6 @@ public class StaticStrings {
 	public static final String CNPJ = "cnpj";
 	public static final String EMAIL= "email";
 	public static final String DOCUMENT= "document";
+	public static final String NULL= "null";
 
 }

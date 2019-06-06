@@ -3,7 +3,6 @@ package br.com.vsgdev.emotionsRoute.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;

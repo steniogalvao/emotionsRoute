@@ -16,4 +16,6 @@ public enum DocTypeEnum {
 	public String getDocType() {
 		return docType;
 	}
+	
+	
 }
