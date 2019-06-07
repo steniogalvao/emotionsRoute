@@ -1,7 +1,6 @@
 package br.com.vsgdev.emotionsRoute.model;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
