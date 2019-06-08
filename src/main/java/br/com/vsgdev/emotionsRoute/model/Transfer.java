@@ -14,7 +14,7 @@ public class Transfer {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
-	private int Id;
+	private int id;
 
 	private TransferType transferType;
 
@@ -31,11 +31,11 @@ public class Transfer {
 	private int capacity;
 
 	public int getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(int id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public TransferType getTransferType() {
@@ -88,7 +88,7 @@ public class Transfer {
 
 	@Override
 	public String toString() {
-		return "Transfer [Id=" + Id + ", transferType=" + transferType + ", tour=" + tour + ", origin=" + origin
+		return "Transfer [id=" + id + ", transferType=" + transferType + ", tour=" + tour + ", origin=" + origin
 				+ ", destiny=" + destiny + ", value=" + value + ", capacity=" + capacity + "]";
 	}
 
