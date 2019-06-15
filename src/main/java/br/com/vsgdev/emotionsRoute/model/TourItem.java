@@ -1,7 +1,5 @@
 package br.com.vsgdev.emotionsRoute.model;
 
-import java.math.BigDecimal;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,7 +7,7 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class TourItem {
+public class TourItem extends Payable {
 
 	@Id
 	@GeneratedValue
@@ -18,9 +16,6 @@ public class TourItem {
 	@NotNull
 	@OneToOne
 	private Tour tour;
-
-	@NotNull
-	private BigDecimal price;
 
 	@NotNull
 	private String duration;
@@ -38,7 +33,7 @@ public class TourItem {
 		return id;
 	}
 
-	public void setId( Long id ) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -46,23 +41,15 @@ public class TourItem {
 		return tour;
 	}
 
-	public void setTour( Tour tour ) {
+	public void setTour(Tour tour) {
 		this.tour = tour;
-	}
-
-	public BigDecimal getPrice() {
-		return price;
-	}
-
-	public void setPrice( BigDecimal price ) {
-		this.price = price;
 	}
 
 	public String getDuration() {
 		return duration;
 	}
 
-	public void setDuration( String duration ) {
+	public void setDuration(String duration) {
 		this.duration = duration;
 	}
 
@@ -70,7 +57,7 @@ public class TourItem {
 		return includeDescription;
 	}
 
-	public void setIncludeDescription( String includeDescription ) {
+	public void setIncludeDescription(String includeDescription) {
 		this.includeDescription = includeDescription;
 	}
 
@@ -78,7 +65,7 @@ public class TourItem {
 		return responsable;
 	}
 
-	public void setResponsable( User responsable ) {
+	public void setResponsable(User responsable) {
 		this.responsable = responsable;
 	}
 
@@ -86,8 +73,14 @@ public class TourItem {
 		return active;
 	}
 
-	public void setActive( boolean active ) {
+	public void setActive(boolean active) {
 		this.active = active;
+	}
+
+	@Override
+	public String toString() {
+		return "TourItem [id=" + id + ", tour=" + tour + ", duration=" + duration + ", includeDescription="
+				+ includeDescription + ", responsable=" + responsable + ", active=" + active + "]";
 	}
 
 }

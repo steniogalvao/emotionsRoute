@@ -1,15 +1,12 @@
 package br.com.vsgdev.emotionsRoute.model;
 
-import java.math.BigDecimal;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
 
 @Entity
-public class Equipament {
+public class Equipament extends Payable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
@@ -20,9 +17,6 @@ public class Equipament {
 	private String description;
 
 	private boolean rented = false;
-
-	@NotNull
-	private BigDecimal price;
 
 	public int getId() {
 		return id;
@@ -56,18 +50,9 @@ public class Equipament {
 		this.rented = rented;
 	}
 
-	public BigDecimal getPrice() {
-		return price;
-	}
-
-	public void setPrice(BigDecimal price) {
-		this.price = price;
-	}
-
 	@Override
 	public String toString() {
-		return "Equipament [id=" + id + ", name=" + name + ", description=" + description + ", rented=" + rented
-				+ ", price=" + price + "]";
+		return "Equipament [id=" + id + ", name=" + name + ", description=" + description + ", rented=" + rented + "]";
 	}
 
 }

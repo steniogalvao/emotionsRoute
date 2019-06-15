@@ -1,7 +1,5 @@
 package br.com.vsgdev.emotionsRoute.model;
 
-import java.math.BigDecimal;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,7 +8,7 @@ import javax.persistence.Id;
 import br.com.vsgdev.emotionsRoute.enums.TransferType;
 
 @Entity
-public class Transfer {
+public class Transfer extends Payable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
@@ -24,7 +22,6 @@ public class Transfer {
 
 	private String destiny;
 
-	private BigDecimal value;
 	/**
 	 * Number of people allowed
 	 */
@@ -70,14 +67,6 @@ public class Transfer {
 		this.destiny = destiny;
 	}
 
-	public BigDecimal getValue() {
-		return value;
-	}
-
-	public void setValue(BigDecimal value) {
-		this.value = value;
-	}
-
 	public int getCapacity() {
 		return capacity;
 	}
@@ -89,7 +78,7 @@ public class Transfer {
 	@Override
 	public String toString() {
 		return "Transfer [id=" + id + ", transferType=" + transferType + ", tour=" + tour + ", origin=" + origin
-				+ ", destiny=" + destiny + ", value=" + value + ", capacity=" + capacity + "]";
+				+ ", destiny=" + destiny + ", capacity=" + capacity + "]";
 	}
 
 }
