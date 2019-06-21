@@ -20,7 +20,7 @@ public class Request {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
-	private int Id;
+	private Long Id;
 
 	@ElementCollection
 	private List<Person> clients = new ArrayList<>();
@@ -35,11 +35,11 @@ public class Request {
 	@NotNull
 	private RequestStatusEnum status;
 
-	public int getId() {
+	public Long getId() {
 		return Id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		Id = id;
 	}
 
