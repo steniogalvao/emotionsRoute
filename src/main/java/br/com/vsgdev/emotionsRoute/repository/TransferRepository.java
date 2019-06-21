@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import br.com.vsgdev.emotionsRoute.model.Transfer;
 
 @Repository
-public interface TransferRepository extends CrudRepository<Transfer, Integer> {
+public interface TransferRepository extends CrudRepository<Transfer, Long> {
 
 }

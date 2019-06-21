@@ -12,7 +12,7 @@ public class Transfer extends Payable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
-	private int id;
+	private Long id;
 
 	private TransferType transferType;
 
@@ -27,11 +27,11 @@ public class Transfer extends Payable {
 	 */
 	private int capacity;
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
