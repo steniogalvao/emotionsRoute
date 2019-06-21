@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import br.com.vsgdev.emotionsRoute.model.Address;
 
 @Repository
-public interface AddressRepository extends CrudRepository<Address, Long> {
+public interface AddressRepository extends CrudRepository<Address, Integer> {
 
 }
