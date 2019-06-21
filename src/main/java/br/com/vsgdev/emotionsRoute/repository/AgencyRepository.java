@@ -8,9 +8,9 @@ import org.springframework.stereotype.Repository;
 import br.com.vsgdev.emotionsRoute.model.Agency;
 
 @Repository
-public interface AgencyRepository extends CrudRepository<Agency, Long> {
+public interface AgencyRepository extends CrudRepository<Agency, Integer> {
 
-	Agency findByIdAndActive( Long id, boolean active );
+	Agency findByIdAndActive( int id, boolean active );
 
 	Agency findByCnpj( String cnpj );
 
