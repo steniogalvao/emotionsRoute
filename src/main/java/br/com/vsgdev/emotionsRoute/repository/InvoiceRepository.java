@@ -3,9 +3,9 @@ package br.com.vsgdev.emotionsRoute.repository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import br.com.vsgdev.emotionsRoute.model.Address;
+import br.com.vsgdev.emotionsRoute.model.Invoice;
 
 @Repository
-public interface AddressRepository extends CrudRepository<Address, Integer> {
+public interface InvoiceRepository extends CrudRepository<Invoice, Integer>{
 
 }
