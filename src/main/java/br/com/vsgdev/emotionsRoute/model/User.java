@@ -10,6 +10,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -22,11 +23,11 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import br.com.vsgdev.emotionsRoute.enums.UserTypeEnum;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance( strategy = InheritanceType.TABLE_PER_CLASS )
 public abstract class User {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue( strategy = GenerationType.SEQUENCE )
 	private Long id;
 
 	@NotNull
@@ -37,18 +38,19 @@ public abstract class User {
 	private List<String> phones;
 
 	@NotNull
-	@Column(unique = true)
+	@Column( unique = true )
 	private String email;
 
 	@NotNull
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
 	private Address address;
 
-	@JsonProperty(access = Access.WRITE_ONLY)
+	@JsonProperty( access = Access.WRITE_ONLY )
 	private String password;
 
 	@NotNull
-	@Enumerated(EnumType.STRING)
+	@Enumerated( EnumType.STRING )
+	@Column( name = "userType" )
 	private UserTypeEnum userType;
 
 	private double rate;
@@ -59,7 +61,7 @@ public abstract class User {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId( Long id ) {
 		this.id = id;
 	}
 
@@ -67,7 +69,7 @@ public abstract class User {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName( String name ) {
 		this.name = name;
 	}
 
@@ -75,7 +77,7 @@ public abstract class User {
 		return phones;
 	}
 
-	public void setPhones(List<String> phones) {
+	public void setPhones( List<String> phones ) {
 		this.phones = phones;
 	}
 
@@ -83,7 +85,7 @@ public abstract class User {
 		return email;
 	}
 
-	public void setEmail(String email) {
+	public void setEmail( String email ) {
 		this.email = email;
 	}
 
@@ -91,7 +93,7 @@ public abstract class User {
 		return address;
 	}
 
-	public void setAddress(Address address) {
+	public void setAddress( Address address ) {
 		this.address = address;
 	}
 
@@ -99,7 +101,7 @@ public abstract class User {
 		return password;
 	}
 
-	public void setPassword(String password) {
+	public void setPassword( String password ) {
 		this.password = password;
 	}
 
@@ -107,7 +109,7 @@ public abstract class User {
 		return userType;
 	}
 
-	public void setUserType(UserTypeEnum userType) {
+	public void setUserType( UserTypeEnum userType ) {
 		this.userType = userType;
 	}
 
@@ -115,7 +117,7 @@ public abstract class User {
 		return rate;
 	}
 
-	public void setRate(double rate) {
+	public void setRate( double rate ) {
 		this.rate = rate;
 	}
 
@@ -123,7 +125,7 @@ public abstract class User {
 		return active;
 	}
 
-	public void setActive(boolean active) {
+	public void setActive( boolean active ) {
 		this.active = active;
 	}
 

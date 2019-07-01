@@ -1,25 +1,26 @@
 package br.com.vsgdev.emotionsRoute.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.NotEmpty;
 
 import br.com.vsgdev.emotionsRoute.enums.TransferType;
 
 @Entity
 public class Transfer extends Payable {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
-	private Long id;
-
+	@Enumerated( EnumType.STRING )
 	private TransferType transferType;
 
+	@OneToOne
 	private Tour tour;
 
+	@NotEmpty
 	private String origin;
 
+	@NotEmpty
 	private String destiny;
 
 	/**
@@ -27,19 +28,11 @@ public class Transfer extends Payable {
 	 */
 	private int capacity;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public TransferType getTransferType() {
 		return transferType;
 	}
 
-	public void setTransferType(TransferType transferType) {
+	public void setTransferType( TransferType transferType ) {
 		this.transferType = transferType;
 	}
 
@@ -47,7 +40,7 @@ public class Transfer extends Payable {
 		return tour;
 	}
 
-	public void setTour(Tour tour) {
+	public void setTour( Tour tour ) {
 		this.tour = tour;
 	}
 
@@ -55,7 +48,7 @@ public class Transfer extends Payable {
 		return origin;
 	}
 
-	public void setOrigin(String origin) {
+	public void setOrigin( String origin ) {
 		this.origin = origin;
 	}
 
@@ -63,7 +56,7 @@ public class Transfer extends Payable {
 		return destiny;
 	}
 
-	public void setDestiny(String destiny) {
+	public void setDestiny( String destiny ) {
 		this.destiny = destiny;
 	}
 
@@ -71,14 +64,13 @@ public class Transfer extends Payable {
 		return capacity;
 	}
 
-	public void setCapacity(int capacity) {
+	public void setCapacity( int capacity ) {
 		this.capacity = capacity;
 	}
 
 	@Override
 	public String toString() {
-		return "Transfer [id=" + id + ", transferType=" + transferType + ", tour=" + tour + ", origin=" + origin
-				+ ", destiny=" + destiny + ", capacity=" + capacity + "]";
+		return "Transfer [id=" + getId() + ", transferType=" + transferType + ", tour=" + tour + ", origin=" + origin + ", destiny=" + destiny + ", capacity=" + capacity + "]";
 	}
 
 }

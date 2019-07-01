@@ -3,12 +3,18 @@ package br.com.vsgdev.emotionsRoute.serviceImpl;
 import java.util.List;
 import java.util.Optional;
 
+import javax.ws.rs.BadRequestException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
+import br.com.vsgdev.emotionsRoute.exception.MandatoryField;
 import br.com.vsgdev.emotionsRoute.exception.NotFoundEntity;
 import br.com.vsgdev.emotionsRoute.model.Agency;
 import br.com.vsgdev.emotionsRoute.repository.AgencyRepository;
+import br.com.vsgdev.emotionsRoute.service.AddressService;
 import br.com.vsgdev.emotionsRoute.service.AgencyService;
 
 @Service
@@ -16,72 +22,78 @@ public class AgencyServiceImpl implements AgencyService {
 
 	@Autowired
 	private AgencyRepository agRep;
+	@Autowired
+	private AddressService addressService;
 
 	@Override
-	public Agency get(int id) throws NotFoundEntity {
-		Optional<Agency> result = agRep.findById(id);
-		if (result.isPresent()) {
-			return result.get();
-		} else {
-			throw new NotFoundEntity("id", String.valueOf(id));
+	public Optional<Agency> get( Long id ) {
+		return agRep.findById( id );
+	}
+
+	@Override
+	public void delete( Long id ) throws NotFoundEntity {
+		Optional<Agency> agencyResult = get( id );
+		if ( agencyResult.isPresent() ) {
+			agencyResult.get().setActive( false );
+			save( agencyResult.get() );
+		}
+
+	}
+
+	/*
+	 * TODO: solve password problem
+	 * 
+	 */
+	@Transactional( rollbackFor = { Exception.class } )
+	@Override
+	public Agency put( Agency agency ) throws BadRequestException, MandatoryField {
+		if ( StringUtils.isEmpty( agency.getId() ) || !agRep.existsById( agency.getId() ) ) {
+			throw new BadRequestException();
+		}
+		updateAgencyAndAddress( agency );
+		return agency;
+	}
+
+	void updateAgencyAndAddress( Agency agency ) {
+		int result = agRep.updateAllButPassword( agency.getId(), agency.getCnpj(), agency.getEmail(), agency.getName(), agency.getRate(), agency.getUserType() );
+		addressService.put( agency.getAddress() );
+		if ( result == 0 ) {
+			throw new BadRequestException();
 		}
 	}
 
 	@Override
-	public void delete(int id) throws NotFoundEntity {
-		agRep.delete(get(id));
-
-	}
-
-	@Override
-	public Agency put(Agency agency) throws NotFoundEntity {
-		get(agency.getId());
-		return agRep.save(agency);
-	}
-
-	@Override
-	public Agency save(Agency agency) {
-		if (agency.getId() == 0) {
-			return agRep.save(agency);
+	public Agency save( Agency agency ) throws BadRequestException {
+		if ( agency.getId() != null ) {
+			return agRep.save( agency );
 		} else {
-			// may throw an exception
-			return null;
+			throw new BadRequestException();
 		}
 	}
 
 	@Override
-	public Agency findByIdAndActive(int id, boolean active) throws NotFoundEntity {
-		Agency result = agRep.findByIdAndActive(id, active);
-		if (result != null) {
-			return result;
-		} else {
-			throw new NotFoundEntity("id", String.valueOf(id));
-		}
+	public Agency findByIdAndActive( Long id, boolean active ) {
+		return agRep.findByIdAndActive( id, active );
 	}
 
 	@Override
-	public Agency findByCnpj(String cnpj) throws NotFoundEntity {
-		Agency result = agRep.findByCnpj(cnpj);
-		if (result != null) {
-			return result;
-		} else {
-			throw new NotFoundEntity("cnpj", cnpj);
-		}
+	public Agency findByCnpj( String cnpj ) {
+		return agRep.findByCnpj( cnpj );
 	}
 
 	@Override
-	public List<Agency> findAllByName(String name) {
-		return agRep.findAllByNameContainingIgnoreCaseOrderByName(name);
+	public List<Agency> findAllByName( String name ) {
+		return agRep.findAllByNameContainingIgnoreCaseOrderByName( name );
 	}
 
 	@Override
-	public boolean existsByEmail(String email) {
-		return agRep.existsByEmail(email);
+	public boolean existsByEmail( String email ) {
+		return agRep.existsByEmail( email );
 	}
 
 	@Override
-	public boolean existsByCnpj(String cnpj) {
-		return agRep.existsByCnpj(cnpj);
+	public boolean existsByCnpj( String cnpj ) {
+		return agRep.existsByCnpj( cnpj );
 	}
 
 }

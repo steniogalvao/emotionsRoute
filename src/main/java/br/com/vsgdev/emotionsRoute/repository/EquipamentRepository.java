@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import br.com.vsgdev.emotionsRoute.model.Equipament;
 
 @Repository
-public interface EquipamentRepository extends CrudRepository<Equipament, Integer>{
+public interface EquipamentRepository extends CrudRepository<Equipament, Long>{
 
 }

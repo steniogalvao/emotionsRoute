@@ -6,9 +6,12 @@ import java.util.List;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -19,7 +22,7 @@ import br.com.vsgdev.emotionsRoute.enums.RequestStatusEnum;
 public class Request {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long Id;
 
 	@ElementCollection
@@ -29,9 +32,11 @@ public class Request {
 	@NotNull
 	private LocalDateTime dateTime;
 
+	@OneToOne
 	@NotNull
 	private TourItem tourItem;
 
+	@Enumerated( EnumType.STRING )
 	@NotNull
 	private RequestStatusEnum status;
 
@@ -39,7 +44,7 @@ public class Request {
 		return Id;
 	}
 
-	public void setId(Long id) {
+	public void setId( Long id ) {
 		Id = id;
 	}
 
@@ -47,7 +52,7 @@ public class Request {
 		return clients;
 	}
 
-	public void setClients(List<Person> clients) {
+	public void setClients( List<Person> clients ) {
 		this.clients = clients;
 	}
 
@@ -55,7 +60,7 @@ public class Request {
 		return dateTime;
 	}
 
-	public void setDateTime(LocalDateTime dateTime) {
+	public void setDateTime( LocalDateTime dateTime ) {
 		this.dateTime = dateTime;
 	}
 
@@ -63,7 +68,7 @@ public class Request {
 		return status;
 	}
 
-	public void setStatus(RequestStatusEnum status) {
+	public void setStatus( RequestStatusEnum status ) {
 		this.status = status;
 	}
 
@@ -71,14 +76,13 @@ public class Request {
 		return tourItem;
 	}
 
-	public void setTourItem(TourItem tourItem) {
+	public void setTourItem( TourItem tourItem ) {
 		this.tourItem = tourItem;
 	}
 
 	@Override
 	public String toString() {
-		return "Request [Id=" + Id + ", clients=" + clients + ", dateTime=" + dateTime + ", tourItem=" + tourItem
-				+ ", status=" + status + "]";
+		return "Request [Id=" + Id + ", clients=" + clients + ", dateTime=" + dateTime + ", tourItem=" + tourItem + ", status=" + status + "]";
 	}
 
 }

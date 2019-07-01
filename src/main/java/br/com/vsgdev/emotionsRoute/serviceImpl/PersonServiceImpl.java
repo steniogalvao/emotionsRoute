@@ -48,4 +48,9 @@ public class PersonServiceImpl implements PersonService {
 		}
 	}
 
+	@Override
+	public boolean existsByEmail(String email) {
+		return peRep.existsByEmail(email);
+	}
+
 }

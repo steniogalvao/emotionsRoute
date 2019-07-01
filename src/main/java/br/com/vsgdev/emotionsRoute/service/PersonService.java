@@ -13,4 +13,6 @@ public interface PersonService {
 
 	Person save(Person person);
 
+	boolean existsByEmail(String email);
+
 }
