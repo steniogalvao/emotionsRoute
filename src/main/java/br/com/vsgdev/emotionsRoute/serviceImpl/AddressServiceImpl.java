@@ -26,7 +26,7 @@ public class AddressServiceImpl implements AddressService {
 
 	@Override
 	public void delete( Long id ) throws BadRequestException {
-		if ( StringUtils.isEmpty( id ) || addRep.existsById( id ) ) {
+		if ( StringUtils.isEmpty( id ) || !addRep.existsById( id ) ) {
 			throw new BadRequestException();
 		}
 		addRep.deleteById( id );
@@ -43,7 +43,7 @@ public class AddressServiceImpl implements AddressService {
 
 	@Override
 	public Address save( Address address ) {
-		if ( address.getId() == 0 ) {
+		if ( address.getId() == null ) {
 			return addRep.save( address );
 		} else {
 			// may throw an exception
