@@ -6,14 +6,13 @@ import java.util.Optional;
 import javax.ws.rs.BadRequestException;
 
 import br.com.vsgdev.emotionsRoute.exception.MandatoryField;
-import br.com.vsgdev.emotionsRoute.exception.NotFoundEntity;
 import br.com.vsgdev.emotionsRoute.model.Agency;
 
 public interface AgencyService {
 
 	Optional<Agency> get( Long id );
 
-	void delete( Long id ) throws NotFoundEntity;
+	void delete( Long id );
 
 	Agency put( Agency agency ) throws MandatoryField;
 

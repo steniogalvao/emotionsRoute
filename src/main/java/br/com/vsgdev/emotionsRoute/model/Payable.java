@@ -14,10 +14,12 @@ import javax.persistence.InheritanceType;
 public abstract class Payable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue( strategy = GenerationType.SEQUENCE )
 	private Long id;
 
 	private BigDecimal value;
+
+	private Boolean deleted = false;
 
 	public Long getId() {
 		return id;
@@ -33,6 +35,14 @@ public abstract class Payable {
 
 	public void setValue( BigDecimal value ) {
 		this.value = value;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted( Boolean deleted ) {
+		this.deleted = deleted;
 	}
 
 }

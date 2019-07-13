@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import br.com.vsgdev.emotionsRoute.exception.MandatoryField;
-import br.com.vsgdev.emotionsRoute.exception.NotFoundEntity;
 import br.com.vsgdev.emotionsRoute.model.Agency;
 import br.com.vsgdev.emotionsRoute.repository.AgencyRepository;
 import br.com.vsgdev.emotionsRoute.service.AddressService;
@@ -31,7 +30,7 @@ public class AgencyServiceImpl implements AgencyService {
 	}
 
 	@Override
-	public void delete( Long id ) throws NotFoundEntity {
+	public void delete( Long id )  {
 		Optional<Agency> agencyResult = get( id );
 		if ( agencyResult.isPresent() ) {
 			agencyResult.get().setActive( false );

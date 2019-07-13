@@ -1,12 +1,15 @@
 package br.com.vsgdev.emotionsRoute.model;
 
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Equipament extends Payable {
 
+	@NotNull
 	private String name;
 
+	@NotNull
 	private String description;
 
 	private boolean rented = false;

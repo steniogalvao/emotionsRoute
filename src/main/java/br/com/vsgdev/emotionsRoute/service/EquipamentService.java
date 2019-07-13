@@ -1,15 +1,18 @@
 package br.com.vsgdev.emotionsRoute.service;
 
-import br.com.vsgdev.emotionsRoute.exception.NotFoundEntity;
+import java.util.Optional;
+
+import javax.ws.rs.BadRequestException;
+
 import br.com.vsgdev.emotionsRoute.model.Equipament;
 
 public interface EquipamentService {
 
-	Equipament get( Long id ) throws NotFoundEntity;
+	Optional<Equipament> get( Long id );
 
-	void delete( Long id ) throws NotFoundEntity;
+	void delete( Long id ) throws BadRequestException;
 
-	Equipament put( Equipament equipament ) throws NotFoundEntity;
+	Equipament put( Equipament equipament );
 
 	Equipament save( Equipament equipament );
 

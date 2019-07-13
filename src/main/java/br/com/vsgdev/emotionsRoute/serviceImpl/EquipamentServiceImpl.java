@@ -2,10 +2,11 @@ package br.com.vsgdev.emotionsRoute.serviceImpl;
 
 import java.util.Optional;
 
+import javax.ws.rs.BadRequestException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.vsgdev.emotionsRoute.exception.NotFoundEntity;
 import br.com.vsgdev.emotionsRoute.model.Equipament;
 import br.com.vsgdev.emotionsRoute.repository.EquipamentRepository;
 import br.com.vsgdev.emotionsRoute.service.EquipamentService;
@@ -17,30 +18,31 @@ public class EquipamentServiceImpl implements EquipamentService {
 	private EquipamentRepository eqRep;
 
 	@Override
-	public Equipament get( Long id ) throws NotFoundEntity {
-		Optional<Equipament> result = eqRep.findById( id );
+	public Optional<Equipament> get( Long id ) {
+		return eqRep.findById( id );
+
+	}
+
+	@Override
+	public void delete( Long id ) throws BadRequestException {
+		Optional<Equipament> result = get( id );
 		if ( result.isPresent() ) {
-			return result.get();
+			result.get().setDeleted( true );
+			eqRep.save( result.get() );
 		} else {
-			throw new NotFoundEntity( "id", String.valueOf( id ) );
+			throw new BadRequestException();
 		}
-	}
-
-	@Override
-	public void delete( Long id ) throws NotFoundEntity {
-		eqRep.delete( get( id ) );
 
 	}
 
 	@Override
-	public Equipament put( Equipament equipament ) throws NotFoundEntity {
-		get( equipament.getId() );
-		return eqRep.save( equipament );
+	public Equipament put( Equipament equipament ) {
+		return eqRep.existsById( equipament.getId() ) ? eqRep.save( equipament ) : null;
 	}
 
 	@Override
 	public Equipament save( Equipament equipament ) {
-		if ( equipament.getId() == 0 ) {
+		if ( equipament.getId() == null ) {
 			return eqRep.save( equipament );
 		} else {
 			// may throw an exception
