@@ -1,18 +1,13 @@
-package br.com.vsgdev.emotionsRoute.model;
+package br.com.vsgdev.emotionsRoute.model.vo;
 
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import br.com.vsgdev.emotionsRoute.enums.DocTypeEnum;
-import br.com.vsgdev.emotionsRoute.model.vo.PersonVO;
+import br.com.vsgdev.emotionsRoute.model.Person;
 
-@Table( uniqueConstraints = @UniqueConstraint( columnNames = { "docType", "docNumber" } ) )
-@Entity
-public class Person extends User {
+public class PersonVO extends UserVO {
 
 	@NotNull
 	@Enumerated( EnumType.STRING )
@@ -21,12 +16,12 @@ public class Person extends User {
 	@NotNull
 	private String docNumber;
 
-	public Person() {}
+	public PersonVO() {}
 
-	public Person( PersonVO personVO ) {
-		super( personVO );
-		this.docType = personVO.getDocType();
-		this.docNumber = personVO.getDocNumber();
+	public PersonVO( Person person ) {
+		super( person );
+		this.docType = person.getDocType();
+		this.docNumber = person.getDocNumber();
 	}
 
 	public DocTypeEnum getDocType() {

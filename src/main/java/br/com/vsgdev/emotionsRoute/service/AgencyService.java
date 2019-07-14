@@ -18,7 +18,7 @@ public interface AgencyService {
 
 	Agency save( Agency agency ) throws BadRequestException;
 
-	Agency findByIdAndActive( Long id, boolean active );
+	Agency findByIdAndDeleted( Long id, boolean deleted );
 
 	Agency findByCnpj( String cnpj );
 

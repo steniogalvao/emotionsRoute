@@ -1,18 +1,25 @@
 package br.com.vsgdev.emotionsRoute.service;
 
-import br.com.vsgdev.emotionsRoute.exception.NotFoundEntity;
+import java.util.Optional;
+
+import javax.ws.rs.BadRequestException;
+
+import br.com.vsgdev.emotionsRoute.enums.DocTypeEnum;
 import br.com.vsgdev.emotionsRoute.model.Person;
+import br.com.vsgdev.emotionsRoute.model.vo.PersonVO;
 
 public interface PersonService {
 
-	Person get(Long id) throws NotFoundEntity;
+	Optional<PersonVO> getVO( Long id, boolean onlyActive);
 
-	void delete(Long id) throws NotFoundEntity;
+	void delete( Long id ) throws BadRequestException;
 
-	Person put(Person person) throws NotFoundEntity;
+	PersonVO save( Person person );
 
-	Person save(Person person);
+	boolean existsByEmail( String email );
 
-	boolean existsByEmail(String email);
+	PersonVO put( PersonVO person ) throws BadRequestException;
+
+	boolean existsByDocNumberAndDocType( String docNumber, DocTypeEnum docType );
 
 }

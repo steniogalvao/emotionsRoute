@@ -30,10 +30,10 @@ public class AgencyServiceImpl implements AgencyService {
 	}
 
 	@Override
-	public void delete( Long id )  {
+	public void delete( Long id ) {
 		Optional<Agency> agencyResult = get( id );
 		if ( agencyResult.isPresent() ) {
-			agencyResult.get().setActive( false );
+			agencyResult.get().setDeleted( false );
 			save( agencyResult.get() );
 		}
 
@@ -63,7 +63,7 @@ public class AgencyServiceImpl implements AgencyService {
 
 	@Override
 	public Agency save( Agency agency ) throws BadRequestException {
-		if ( agency.getId() != null ) {
+		if ( agency.getId() == null ) {
 			return agRep.save( agency );
 		} else {
 			throw new BadRequestException();
@@ -71,8 +71,8 @@ public class AgencyServiceImpl implements AgencyService {
 	}
 
 	@Override
-	public Agency findByIdAndActive( Long id, boolean active ) {
-		return agRep.findByIdAndActive( id, active );
+	public Agency findByIdAndDeleted( Long id, boolean deleted ) {
+		return agRep.findByIdAndDeleted( id, deleted );
 	}
 
 	@Override

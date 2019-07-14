@@ -14,7 +14,7 @@ import br.com.vsgdev.emotionsRoute.model.Agency;
 @Repository
 public interface AgencyRepository extends CrudRepository<Agency, Long> {
 
-	Agency findByIdAndActive( Long id, boolean active );
+	Agency findByIdAndDeleted( Long id, boolean deleted);
 
 	Agency findByCnpj( String cnpj );
 
