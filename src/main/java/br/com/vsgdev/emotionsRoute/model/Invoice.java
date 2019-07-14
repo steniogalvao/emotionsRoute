@@ -18,7 +18,7 @@ public class Invoice {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
-	private int Id;
+	private Long Id;
 
 	@ElementCollection
 	private List<Payable> itens = new ArrayList<>();
@@ -29,12 +29,18 @@ public class Invoice {
 
 	@DateTimeFormat
 	private LocalDateTime date;
+	
+	private boolean paid =false;
+	
+	private boolean deleted = false;
+			
+			
 
-	public int getId() {
+	public Long getId() {
 		return Id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		Id = id;
 	}
 
@@ -69,5 +75,27 @@ public class Invoice {
 	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
+
+	public boolean isPaid() {
+		return paid;
+	}
+
+	public void setPaid( boolean paid ) {
+		this.paid = paid;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted( boolean deleted ) {
+		this.deleted = deleted;
+	}
+
+	@Override
+	public String toString() {
+		return "Invoice [Id=" + Id + ", itens=" + itens + ", total=" + total + ", discount=" + discount + ", date=" + date + ", paid=" + paid + ", deleted=" + deleted + "]";
+	}
+	
 
 }

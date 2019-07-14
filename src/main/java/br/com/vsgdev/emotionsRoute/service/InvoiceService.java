@@ -1,16 +1,21 @@
 package br.com.vsgdev.emotionsRoute.service;
 
-import br.com.vsgdev.emotionsRoute.exception.NotFoundEntity;
+import java.util.Optional;
+
+import javax.ws.rs.BadRequestException;
+
 import br.com.vsgdev.emotionsRoute.model.Invoice;
 
 public interface InvoiceService {
 
-	Invoice get(int id) throws NotFoundEntity;
+	Optional<Invoice> get(Long id);
 
-	void delete(int id) throws NotFoundEntity;
+	void delete(Long id) throws BadRequestException;
 
-	Invoice put(Invoice invoice) throws NotFoundEntity;
+	Invoice put(Invoice invoice) throws BadRequestException;
 
 	Invoice save(Invoice invoice);
+	
+	void payInvoice(Long id)throws BadRequestException;
 
 }

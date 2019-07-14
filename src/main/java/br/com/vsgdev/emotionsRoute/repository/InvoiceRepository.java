@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import br.com.vsgdev.emotionsRoute.model.Invoice;
 
 @Repository
-public interface InvoiceRepository extends CrudRepository<Invoice, Integer>{
+public interface InvoiceRepository extends CrudRepository<Invoice, Long>{
 
 }
