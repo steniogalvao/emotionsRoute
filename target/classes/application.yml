@@ -10,6 +10,7 @@ spring:
       url: 'jdbc:mysql://172.17.0.3:3306/emotionsRoute'
       username: root
       password: root
+      initialization-mode: always
     jpa:
         show-sql: false
         hibernate:

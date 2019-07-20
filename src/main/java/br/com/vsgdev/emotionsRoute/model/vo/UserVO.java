@@ -20,11 +20,9 @@ public abstract class UserVO {
 	private String name;
 
 	@NotNull
-	@ElementCollection
 	private List<String> phones;
 
 	@NotNull
-	@Column( unique = true )
 	private String email;
 
 	@NotNull
