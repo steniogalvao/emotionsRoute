@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 public class Tour {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue( strategy = GenerationType.SEQUENCE )
 	private Long Id;
 	@NotNull
 	private String name;
@@ -29,7 +29,7 @@ public class Tour {
 
 	private double rate;
 
-	private boolean active = true;
+	private boolean deleted = false;
 
 	public Long getId() {
 		return Id;
@@ -79,12 +79,12 @@ public class Tour {
 		this.rate = rate;
 	}
 
-	public boolean isActive() {
-		return active;
+	public boolean isDeleted() {
+		return deleted;
 	}
 
-	public void setActive( boolean active ) {
-		this.active = active;
+	public void setDeleted( boolean deleted ) {
+		this.deleted = deleted;
 	}
 
 }

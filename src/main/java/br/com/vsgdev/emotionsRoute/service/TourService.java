@@ -1,16 +1,19 @@
 package br.com.vsgdev.emotionsRoute.service;
 
-import br.com.vsgdev.emotionsRoute.exception.NotFoundEntity;
+import java.util.Optional;
+
+import javax.ws.rs.BadRequestException;
+
 import br.com.vsgdev.emotionsRoute.model.Tour;
 
 public interface TourService {
 
-	Tour get(Long id) throws NotFoundEntity;
+	Optional<Tour> get( Long id );
 
-	void delete(Long id) throws NotFoundEntity;
+	void delete( Long id ) throws BadRequestException;
 
-	Tour put(Tour tour) throws NotFoundEntity;
+	Tour put( Tour tour ) throws BadRequestException;
 
-	Tour save(Tour tour);
+	Tour save( Tour tour );
 
 }
