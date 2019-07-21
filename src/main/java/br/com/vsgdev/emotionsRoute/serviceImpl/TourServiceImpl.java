@@ -26,7 +26,7 @@ public class TourServiceImpl implements TourService {
 	public void delete( Long id ) throws BadRequestException {
 		Optional<Tour> response = get( id );
 		if ( response.isPresent() ) {
-			response.get().setDeleted( false );
+			response.get().setDeleted( true );
 			tourRep.save( response.get() );
 		} else {
 			throw new BadRequestException();
@@ -45,7 +45,7 @@ public class TourServiceImpl implements TourService {
 
 	@Override
 	public Tour save( Tour tour ) {
-		if ( tour.getId() == 0 ) {
+		if ( tour.getId() == null ) {
 			return tourRep.save( tour );
 		} else {
 			// may throw an exception
