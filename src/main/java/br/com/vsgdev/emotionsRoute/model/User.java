@@ -28,7 +28,7 @@ import br.com.vsgdev.emotionsRoute.model.vo.UserVO;
 public abstract class User {
 
 	@Id
-	@GeneratedValue( strategy = GenerationType.SEQUENCE )
+	@GeneratedValue( strategy = GenerationType.SEQUENCE)
 	private Long id;
 
 	@NotNull
