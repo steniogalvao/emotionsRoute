@@ -1,7 +1,6 @@
 package br.com.vsgdev.emotionsRoute.model;
 
 import java.time.LocalDateTime;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,18 +8,22 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import br.com.vsgdev.emotionsRoute.enums.PaymentMethodEnum;
 
 @Entity
 public class Purchase {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue( strategy = GenerationType.SEQUENCE )
 	private Long Id;
-	
+
+	@DateTimeFormat
 	private LocalDateTime purchaseDate;
 
 	@NotNull
+	@DateTimeFormat
 	private LocalDateTime tourDate;
 
 	@OneToOne
@@ -110,6 +113,11 @@ public class Purchase {
 
 	public void setCanceled( boolean canceled ) {
 		this.canceled = canceled;
+	}
+
+	@Override
+	public String toString() {
+		return "Purchase [Id=" + Id + ", purchaseDate=" + purchaseDate + ", tourDate=" + tourDate + ", tourItem=" + tourItem + ", adults=" + adults + ", childrens=" + childrens + ", buyer=" + buyer + ", paymentMethod=" + paymentMethod + ", canceled=" + canceled + "]";
 	}
 
 }

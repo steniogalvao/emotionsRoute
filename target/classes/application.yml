@@ -7,9 +7,10 @@ server:
 spring:
     profiles: development
     datasource: 
-      url: 'jdbc:mysql://172.17.0.3:3306/emotionsRoute'
+      url: 'jdbc:mysql://localhost:3306/emotionsRoute?useSSL=false'
       username: root
       password: root
+      initialization-mode: always
     jpa:
         show-sql: false
         hibernate:

@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
+Built-By: steniogalvao
+Build-Jdk: 11.0.3
 Implementation-Title: emotionsRoute
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: steniogalvao
 Implementation-Vendor-Id: br.com.vsgdev.emotionsRoute
-Build-Jdk: 1.8.0_201
-Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
- ot-starter-parent/emotionsRoute
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-boot
+ -starter-parent/emotionsRoute
 Created-By: Maven Integration for Eclipse
 

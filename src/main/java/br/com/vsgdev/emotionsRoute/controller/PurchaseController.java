@@ -1,66 +1,53 @@
 package br.com.vsgdev.emotionsRoute.controller;
 
-import static br.com.vsgdev.emotionsRoute.utils.StaticStrings.ID;
-
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import javax.ws.rs.BadRequestException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.vsgdev.emotionsRoute.exception.NotFoundEntity;
 import br.com.vsgdev.emotionsRoute.model.Purchase;
-import br.com.vsgdev.emotionsRoute.repository.PurchaseRepository;
+import br.com.vsgdev.emotionsRoute.service.PurchaseService;
 
-@RestController
+@RestController( value = "/purchase" )
 public class PurchaseController {
 
 	@Autowired
-	private PurchaseRepository purchaseRepository;
+	private PurchaseService purService;
 
-	@GetMapping( "/purchase{purchadisseId}" )
-	public Purchase getPurchase( @PathVariable Long purchaseId ) throws NotFoundEntity {
-		Optional<Purchase> response = purchaseRepository.findById( purchaseId );
-		if ( response.isPresent() ) {
-			return response.get();
-		} else {
-			throw new NotFoundEntity( ID, String.valueOf( purchaseId ) );
-		}
+	@GetMapping( "/{id}" )
+	@ResponseBody
+	public Purchase getPurchase( @PathVariable Long id ) {
+		Optional<Purchase> response = purService.get( id );
+		return response.isPresent() ? response.get() : null;
 	}
 
-	@PostMapping( "/purchase" )
-	public Purchase postPurchase( @Validated @RequestBody Purchase purchase ) throws NotFoundEntity {
+	@PostMapping
+	@ResponseBody
+	public Purchase postPurchase( @Validated @RequestBody Purchase purchase ) throws BadRequestException {
 		purchase.setPurchaseDate( LocalDateTime.now() );
-		return purchaseRepository.save( purchase );
+		return purService.save( purchase );
 	}
 
-	@PutMapping( "/purchase" )
-	public Purchase putPurchase( @Validated @RequestBody Purchase purchase ) throws NotFoundEntity {
-		if ( purchaseRepository.existsById( purchase.getId() ) ) {
-			purchase.setPurchaseDate( LocalDateTime.now() );
-			return purchaseRepository.save( purchase );
-		} else {
-			throw new NotFoundEntity( ID, String.valueOf( purchase.getId() ) );
-		}
+	@PutMapping
+	@ResponseBody
+	public Purchase putPurchase( @Validated @RequestBody Purchase purchase ) throws BadRequestException {
+		return purService.put( purchase );
 	}
 
-	@DeleteMapping( "/purchase/{purchaseId}" )
-	public void cancelPurchase( @PathVariable Long purchaseId ) throws NotFoundEntity {
-		Optional<Purchase> response = purchaseRepository.findById( purchaseId );
-		if ( !response.isPresent() ) {
-			throw new NotFoundEntity( ID, String.valueOf( purchaseId ) );
-		} else {
-			Purchase purchase = response.get();
-			purchase.setCanceled( true );
-			purchaseRepository.save( purchase );
-		}
+	@PutMapping( "/{id}" )
+	@ResponseBody
+	public Purchase cancelPurchase( @PathVariable Long id ) throws BadRequestException {
+		return purService.cancel( id );
 	}
 
 }

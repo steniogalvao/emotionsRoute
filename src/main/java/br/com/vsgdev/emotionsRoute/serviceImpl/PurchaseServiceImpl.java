@@ -2,10 +2,11 @@ package br.com.vsgdev.emotionsRoute.serviceImpl;
 
 import java.util.Optional;
 
+import javax.ws.rs.BadRequestException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.vsgdev.emotionsRoute.exception.NotFoundEntity;
 import br.com.vsgdev.emotionsRoute.model.Purchase;
 import br.com.vsgdev.emotionsRoute.repository.PurchaseRepository;
 import br.com.vsgdev.emotionsRoute.service.PurchaseService;
@@ -17,25 +18,30 @@ public class PurchaseServiceImpl implements PurchaseService {
 	private PurchaseRepository puRep;
 
 	@Override
-	public Purchase get(Long id) throws NotFoundEntity {
-		Optional<Purchase> result = puRep.findById(id);
+	public Optional<Purchase> get(Long id) {
+		return puRep.findById(id);
+	}
+
+	@Override
+	public Purchase cancel(Long id) throws BadRequestException {
+		Optional<Purchase> result = get(id);
 		if (result.isPresent()) {
-			return result.get();
+			result.get().setCanceled(true);
+			return puRep.save(result.get());
 		} else {
-			throw new NotFoundEntity("id", String.valueOf(id));
+			throw new BadRequestException();
 		}
-	}
-
-	@Override
-	public void delete(Long id) throws NotFoundEntity {
-		puRep.delete(get(id));
 
 	}
 
 	@Override
-	public Purchase put(Purchase purchase) throws NotFoundEntity {
-		get(purchase.getId());
-		return puRep.save(purchase);
+	public Purchase put(Purchase purchase) throws BadRequestException {
+		if (purchase.getId() != null && puRep.existsById(purchase.getId())) {
+			return puRep.save(purchase);
+		} else {
+			throw new BadRequestException();
+		}
+
 	}
 
 	@Override
