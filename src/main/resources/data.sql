@@ -8,3 +8,4 @@ INSERT INTO user_phones (user_id, phones) VALUES(2, '++558688888888');
 INSERT INTO user_phones (user_id, phones) VALUES(2, '+400545645645');
 INSERT INTO address (id, country, city, neighborhood, `number`, street) VALUES(1, 'Romania', 'Bucharest', 'Sector 1', '177', 'Strata');
 INSERT INTO address (id, country, city, neighborhood, `number`, street) VALUES(2, 'Romania', 'Bucharest', 'Sector 2', '999', 'Strata');
+INSERT INTO tour (id, city, deleted, description, name, rate) VALUES(1, 'Parnaiba', 0, 'Passeio pelo delta do parnaiba', 'delta', 0);
