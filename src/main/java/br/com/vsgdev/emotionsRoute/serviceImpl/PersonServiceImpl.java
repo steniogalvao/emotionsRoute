@@ -48,7 +48,7 @@ public class PersonServiceImpl implements PersonService {
 	@Override
 	public PersonVO put( PersonVO person ) throws BadRequestException {
 		if ( person.getId() != null && peRep.existsById( person.getId() ) ) {
-			int result = peRep.updateAllButPassword( person.getId(), person.getDocType(), person.getDocNumber(), person.getEmail(), person.getName(), person.getRate(), person.getUserType() );
+			int result = peRep.updateAllButPassword( person.getId(), person.getDocType(), person.getDocNumber(), person.getEmail(), person.getName(), person.getRate(), person.getUserRole() );
 			adService.put( person.getAddress() );
 			if ( result == 0 ) {
 				throw new BadRequestException();

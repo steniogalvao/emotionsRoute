@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import br.com.vsgdev.emotionsRoute.enums.DocTypeEnum;
-import br.com.vsgdev.emotionsRoute.enums.UserTypeEnum;
+import br.com.vsgdev.emotionsRoute.enums.UserRoleEnum;
 import br.com.vsgdev.emotionsRoute.model.Person;
 
 @Repository
@@ -25,7 +25,7 @@ public interface PersonRepository extends CrudRepository<Person, Long> {
 
 	@Modifying
 	@Query( "update Person p set p.docType=:docType, p.docNumber=:docNumber, p.email=:email, p.name=:name, p.rate=:rate, p.userType=:userType where p.id = :id" )
-	int updateAllButPassword( @Param( "id" ) Long id, @Param( "docType" ) DocTypeEnum docType, @Param( "docNumber" ) String docNumber, @Param( "email" ) String email, @Param( "name" ) String name, @Param( "rate" ) Double rate, @Param( "userType" ) UserTypeEnum userType );
+	int updateAllButPassword( @Param( "id" ) Long id, @Param( "docType" ) DocTypeEnum docType, @Param( "docNumber" ) String docNumber, @Param( "email" ) String email, @Param( "name" ) String name, @Param( "rate" ) Double rate, @Param( "userType" ) UserRoleEnum userType );
 
 	@Modifying
 	@Query( "update Person p set p.password=:password where p.id = :id" )

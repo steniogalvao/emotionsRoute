@@ -2,9 +2,8 @@ package br.com.vsgdev.emotionsRoute.enums;
 
 public enum UserTypeEnum {
 
-	ADMIN( "ADMIN" ),
-	USER( "USER" ),
-	PARTNER( "PARTNER" ),;
+	PERSON( "PERSON" ),
+	AGENCY( "AGENCY" ),;
 
 	private String userType;
 

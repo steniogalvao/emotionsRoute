@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import br.com.vsgdev.emotionsRoute.enums.UserTypeEnum;
+import br.com.vsgdev.emotionsRoute.enums.UserRoleEnum;
 import br.com.vsgdev.emotionsRoute.model.Agency;
 
 @Repository
@@ -26,7 +26,7 @@ public interface AgencyRepository extends CrudRepository<Agency, Long> {
 
 	@Modifying
 	@Query( "update Agency a set a.cnpj=:cnpj, a.email=:email, a.name=:name, a.rate=:rate, a.userType=:userType where a.id = :id" )
-	int updateAllButPassword( @Param( "id" ) Long id, @Param( "cnpj" ) String cnpj, @Param( "email" ) String email, @Param( "name" ) String name, @Param( "rate" ) Double rate, @Param( "userType" ) UserTypeEnum userType );
+	int updateAllButPassword( @Param( "id" ) Long id, @Param( "cnpj" ) String cnpj, @Param( "email" ) String email, @Param( "name" ) String name, @Param( "rate" ) Double rate, @Param( "userType" ) UserRoleEnum userType );
 
 	@Modifying
 	@Query( "update Agency a set a.password=:password where a.id = :id" )

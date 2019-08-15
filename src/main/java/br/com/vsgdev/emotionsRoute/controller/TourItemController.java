@@ -1,10 +1,12 @@
 package br.com.vsgdev.emotionsRoute.controller;
 
-import static br.com.vsgdev.emotionsRoute.utils.StaticStrings.ID;
-
+import java.net.URI;
 import java.util.Optional;
 
+import javax.ws.rs.BadRequestException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,52 +14,42 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.vsgdev.emotionsRoute.exception.NotFoundEntity;
 import br.com.vsgdev.emotionsRoute.model.TourItem;
-import br.com.vsgdev.emotionsRoute.repository.TourItemRepository;
+import br.com.vsgdev.emotionsRoute.service.TourItemService;
 
 @RestController
+@RequestMapping( value = "/tourItem" )
 public class TourItemController {
 
 	@Autowired
-	private TourItemRepository tourItemRepository;
+	private TourItemService TIService;
 
-	@GetMapping( "/tourItem/{tourItemId}" )
-	public TourItem getTourItem( @PathVariable Long tourItemId ) throws NotFoundEntity {
-		Optional<TourItem> response = tourItemRepository.findById( tourItemId );
-		if ( response.isPresent() ) {
-			return response.get();
-		} else {
-			throw new NotFoundEntity( ID, String.valueOf( tourItemId ) );
-		}
+	@GetMapping( "/{id}" )
+	public TourItem getTour( @PathVariable Long id ) {
+		Optional<TourItem> saved = TIService.get( id );
+		return saved.isPresent() ? saved.get() : null;
+
 	}
 
-	@PostMapping( "/tourItem" )
-	public TourItem postTourItem( @Validated @RequestBody TourItem tourItem ) {
-		return tourItemRepository.save( tourItem );
+	@PostMapping
+	public ResponseEntity<TourItem> postTour( @Validated @RequestBody TourItem tourItem ) {
+		TourItem saved = TIService.save( tourItem );
+		URI uri = UriComponentsBuilder.fromPath( "/tourItem/{id}" ).buildAndExpand( saved.getId() ).toUri();
+		return ResponseEntity.created( uri ).body( saved );
 	}
 
-	@PutMapping( "/tourItem" )
-	public TourItem putTourItem( @Validated @RequestBody TourItem tourItem ) throws NotFoundEntity {
-		if ( tourItemRepository.existsById( tourItem.getId() ) ) {
-			return tourItemRepository.save( tourItem );
-		} else {
-			throw new NotFoundEntity( ID, String.valueOf( tourItem.getId() ) );
-		}
+	@PutMapping
+	public TourItem putTour( @Validated @RequestBody TourItem tourItem ) throws BadRequestException {
+		return TIService.put( tourItem );
 	}
 
-	@DeleteMapping( "/tourItem/{tourItemId}" )
-	public void deleteTourItem( @PathVariable Long tourItemId ) throws NotFoundEntity {
-		Optional<TourItem> response = tourItemRepository.findById( tourItemId );
-		if ( !response.isPresent() ) {
-			throw new NotFoundEntity( ID, String.valueOf( tourItemId ) );
-		} else {
-			TourItem tourItem = response.get();
-			tourItem.setActive( false );
-			tourItemRepository.save( tourItem );
-		}
+	@DeleteMapping( "/{id}" )
+	public void deleteTour( @PathVariable Long id ) throws BadRequestException {
+		TIService.delete( id );
 	}
 
 }

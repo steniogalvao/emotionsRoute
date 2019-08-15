@@ -1,6 +1,8 @@
 package br.com.vsgdev.emotionsRoute.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
@@ -15,13 +17,11 @@ public class TourItem extends Payable {
 	private String duration;
 
 	@NotNull
-	private String includeDescription;
+	private String includedDescription;
 
 	@NotNull
-	@OneToOne
+	@OneToOne( fetch = FetchType.EAGER, cascade = CascadeType.DETACH )
 	private User responsable;
-
-	private boolean active = true;
 
 	public Tour getTour() {
 		return tour;
@@ -39,12 +39,12 @@ public class TourItem extends Payable {
 		this.duration = duration;
 	}
 
-	public String getIncludeDescription() {
-		return includeDescription;
+	public String getIncludedDescription() {
+		return includedDescription;
 	}
 
-	public void setIncludeDescription( String includeDescription ) {
-		this.includeDescription = includeDescription;
+	public void setIncludedDescription( String includeDescription ) {
+		this.includedDescription = includeDescription;
 	}
 
 	public User getResponsable() {
@@ -55,17 +55,9 @@ public class TourItem extends Payable {
 		this.responsable = responsable;
 	}
 
-	public boolean isActive() {
-		return active;
-	}
-
-	public void setActive( boolean active ) {
-		this.active = active;
-	}
-
 	@Override
 	public String toString() {
-		return "TourItem [id=" + getId() + ", tour=" + tour + ", duration=" + duration + ", includeDescription=" + includeDescription + ", responsable=" + responsable + ", active=" + active + "]";
+		return "TourItem [tour=" + tour + ", duration=" + duration + ", includedDescription=" + includedDescription + ", responsable=" + responsable + "]";
 	}
 
 }

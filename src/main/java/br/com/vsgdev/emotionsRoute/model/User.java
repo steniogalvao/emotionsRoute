@@ -17,18 +17,27 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+import br.com.vsgdev.emotionsRoute.enums.UserRoleEnum;
 import br.com.vsgdev.emotionsRoute.enums.UserTypeEnum;
 import br.com.vsgdev.emotionsRoute.model.vo.UserVO;
 
 @Entity
 @Inheritance( strategy = InheritanceType.TABLE_PER_CLASS )
+@JsonIgnoreProperties( ignoreUnknown = true )
+@JsonTypeInfo( use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "userType" )
+@JsonSubTypes( { @JsonSubTypes.Type( value = Person.class, name = "PERSON" ),
+
+		@JsonSubTypes.Type( value = Agency.class, name = "AGENCY" ) } )
 public abstract class User {
 
 	@Id
-	@GeneratedValue( strategy = GenerationType.SEQUENCE)
+	@GeneratedValue( strategy = GenerationType.SEQUENCE )
 	private Long id;
 
 	@NotNull
@@ -54,6 +63,11 @@ public abstract class User {
 	@Column( name = "userType" )
 	private UserTypeEnum userType;
 
+	@NotNull
+	@Enumerated( EnumType.STRING )
+	@Column( name = "userRole" )
+	private UserRoleEnum userRole;
+
 	private double rate;
 
 	private boolean deleted = false;
@@ -68,6 +82,7 @@ public abstract class User {
 		this.email = userVO.getEmail();
 		this.address = userVO.getAddress();
 		this.userType = userVO.getUserType();
+		this.userRole = userVO.getUserRole();
 		this.rate = userVO.getRate();
 		this.deleted = userVO.isDeleted();
 	}
@@ -128,6 +143,14 @@ public abstract class User {
 		this.userType = userType;
 	}
 
+	public UserRoleEnum getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole( UserRoleEnum userRole ) {
+		this.userRole = userRole;
+	}
+
 	public double getRate() {
 		return rate;
 	}
@@ -146,7 +169,7 @@ public abstract class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", phones=" + phones + ", email=" + email + ", address=" + address + ", password=" + password + ", userType=" + userType + ", rate=" + rate + ", deleted=" + deleted + "]";
+		return "User [id=" + id + ", name=" + name + ", phones=" + phones + ", email=" + email + ", address=" + address + ", password=" + password + ", userType=" + userType + ", userRole=" + userRole + ", rate=" + rate + ", deleted=" + deleted + "]";
 	}
 
 }

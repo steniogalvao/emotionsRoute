@@ -54,7 +54,7 @@ public class AgencyServiceImpl implements AgencyService {
 	}
 
 	void updateAgencyAndAddress( Agency agency ) {
-		int result = agRep.updateAllButPassword( agency.getId(), agency.getCnpj(), agency.getEmail(), agency.getName(), agency.getRate(), agency.getUserType() );
+		int result = agRep.updateAllButPassword( agency.getId(), agency.getCnpj(), agency.getEmail(), agency.getName(), agency.getRate(), agency.getUserRole() );
 		addressService.put( agency.getAddress() );
 		if ( result == 0 ) {
 			throw new BadRequestException();

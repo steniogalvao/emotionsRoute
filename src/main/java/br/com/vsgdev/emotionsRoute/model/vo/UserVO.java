@@ -2,12 +2,11 @@ package br.com.vsgdev.emotionsRoute.model.vo;
 
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 
+import br.com.vsgdev.emotionsRoute.enums.UserRoleEnum;
 import br.com.vsgdev.emotionsRoute.enums.UserTypeEnum;
 import br.com.vsgdev.emotionsRoute.model.Address;
 import br.com.vsgdev.emotionsRoute.model.User;
@@ -30,6 +29,10 @@ public abstract class UserVO {
 
 	@NotNull
 	@Enumerated( EnumType.STRING )
+	private UserRoleEnum userRole;
+
+	@NotNull
+	@Enumerated( EnumType.STRING )
 	private UserTypeEnum userType;
 
 	private double rate;
@@ -46,6 +49,7 @@ public abstract class UserVO {
 		this.email = user.getEmail();
 		this.address = user.getAddress();
 		this.userType = user.getUserType();
+		this.userRole = user.getUserRole();
 		this.rate = user.getRate();
 		this.deleted = user.isDeleted();
 	}
@@ -90,6 +94,14 @@ public abstract class UserVO {
 		this.address = address;
 	}
 
+	public UserRoleEnum getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole( UserRoleEnum userRole ) {
+		this.userRole = userRole;
+	}
+
 	public UserTypeEnum getUserType() {
 		return userType;
 	}
@@ -116,7 +128,7 @@ public abstract class UserVO {
 
 	@Override
 	public String toString() {
-		return "UserVO [id=" + id + ", name=" + name + ", phones=" + phones + ", email=" + email + ", address=" + address + ", userType=" + userType + ", rate=" + rate + ", deleted=" + deleted + "]";
+		return "UserVO [id=" + id + ", name=" + name + ", phones=" + phones + ", email=" + email + ", address=" + address + ", userRole=" + userRole + ", rate=" + rate + ", deleted=" + deleted + "]";
 	}
 
 }

@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Built-By: steniogalvao
-Build-Jdk: 11.0.3
+Build-Jdk: 11.0.4
 Implementation-Title: emotionsRoute
 Implementation-Version: 0.0.1-SNAPSHOT
 Implementation-Vendor-Id: br.com.vsgdev.emotionsRoute

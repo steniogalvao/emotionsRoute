@@ -9,5 +9,4 @@ import br.com.vsgdev.emotionsRoute.model.TourItem;
 @Repository
 public interface TourItemRepository extends CrudRepository<TourItem, Long> {
 
-	Person findByIdAndActive( Long id, boolean active );
 }
