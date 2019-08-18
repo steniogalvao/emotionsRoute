@@ -45,7 +45,7 @@ public class RequestServiceImpl implements RequestService {
 
 	@Override
 	public Request save( Request request ) {
-		if ( request.getId() == 0 ) {
+		if ( request.getId() ==null) {
 			return reqRep.save( request );
 		} else {
 			// may throw an exception

@@ -6,7 +6,7 @@ package br.com.vsgdev.emotionsRoute.enums;
  * 
  * REJECTED = User rejected the request
  * 
- * NO_RESPONSE = User didnt answer
+ * WAITING = User didnt answer
  * 
  * CANCELED = User canceled the request after accept
  * 
@@ -15,6 +15,6 @@ package br.com.vsgdev.emotionsRoute.enums;
  **/
 public enum RequestStatusEnum {
 
-	ACCEPTED, REJECTED, NORESPONSE, CANCELED, EXPIRED;
+	ACCEPTED, REJECTED, WAITING, CANCELED, EXPIRED;
 
 }
