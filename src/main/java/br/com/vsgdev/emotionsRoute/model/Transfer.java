@@ -23,11 +23,6 @@ public class Transfer extends Payable {
 	@NotEmpty
 	private String destiny;
 
-	/**
-	 * Number of people allowed
-	 */
-	private int capacity;
-
 	public TransferType getTransferType() {
 		return transferType;
 	}
@@ -60,17 +55,9 @@ public class Transfer extends Payable {
 		this.destiny = destiny;
 	}
 
-	public int getCapacity() {
-		return capacity;
-	}
-
-	public void setCapacity( int capacity ) {
-		this.capacity = capacity;
-	}
-
 	@Override
 	public String toString() {
-		return "Transfer [id=" + getId() + ", transferType=" + transferType + ", tour=" + tour + ", origin=" + origin + ", destiny=" + destiny + ", capacity=" + capacity + "]";
+		return "Transfer [transferType=" + transferType + ", tour=" + tour + ", origin=" + origin + ", destiny=" + destiny + "]";
 	}
 
 }
