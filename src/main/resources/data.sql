@@ -10,3 +10,4 @@ INSERT INTO address (id, country, city, neighborhood, `number`, street) VALUES(1
 INSERT INTO address (id, country, city, neighborhood, `number`, street) VALUES(2, 'Romania', 'Bucharest', 'Sector 2', '999', 'Strata');
 INSERT INTO tour (id, city, deleted, description, name, rate) VALUES(1, 'Parnaiba', 0, 'Passeio pelo delta do parnaiba', 'delta', 0);
 INSERT INTO tour_item (id, deleted, value, duration, included_description, responsable_id, tour_id) VALUES(1, 0, 150.00, '50', 'what is included ', 1, 1);
+INSERT INTO transfer (id, deleted, destiny, origin, transfer_type, tour_id) VALUES(1, 1, 'THE', 'PHB', 'CITY', 1);
