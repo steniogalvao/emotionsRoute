@@ -2,10 +2,11 @@ package br.com.vsgdev.emotionsRoute.serviceImpl;
 
 import java.util.Optional;
 
+import javax.ws.rs.BadRequestException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.vsgdev.emotionsRoute.exception.NotFoundEntity;
 import br.com.vsgdev.emotionsRoute.model.Request;
 import br.com.vsgdev.emotionsRoute.repository.RequestRepository;
 import br.com.vsgdev.emotionsRoute.service.RequestService;
@@ -17,31 +18,35 @@ public class RequestServiceImpl implements RequestService {
 	private RequestRepository reqRep;
 
 	@Override
-	public Request get(Long id) throws NotFoundEntity {
-		Optional<Request> result = reqRep.findById(id);
-		if (result.isPresent()) {
-			return result.get();
+	public Optional<Request> get( Long id ) {
+		return reqRep.findById( id );
+	}
+
+	@Override
+	public void delete( Long id ) throws BadRequestException {
+		Optional<Request> response = get( id );
+		if ( response.isPresent() ) {
+			response.get().setDeleted( true );
+			reqRep.save( response.get() );
 		} else {
-			throw new NotFoundEntity("id", String.valueOf(id));
+			throw new BadRequestException();
+		}
+
+	}
+
+	@Override
+	public Request put( Request request ) throws BadRequestException {
+		if ( request.getId() != null && reqRep.existsById( request.getId() ) ) {
+			return reqRep.save( request );
+		} else {
+			throw new BadRequestException();
 		}
 	}
 
 	@Override
-	public void delete(Long id) throws NotFoundEntity {
-		reqRep.delete(get(id));
-
-	}
-
-	@Override
-	public Request put(Request request) throws NotFoundEntity {
-		get(request.getId());
-		return reqRep.save(request);
-	}
-
-	@Override
-	public Request save(Request request) {
-		if (request.getId() == 0) {
-			return reqRep.save(request);
+	public Request save( Request request ) {
+		if ( request.getId() == 0 ) {
+			return reqRep.save( request );
 		} else {
 			// may throw an exception
 			return null;

@@ -22,7 +22,7 @@ import br.com.vsgdev.emotionsRoute.enums.RequestStatusEnum;
 public class Request {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue( strategy = GenerationType.SEQUENCE )
 	private Long Id;
 
 	@ElementCollection
@@ -39,6 +39,8 @@ public class Request {
 	@Enumerated( EnumType.STRING )
 	@NotNull
 	private RequestStatusEnum status;
+
+	private boolean deleted = false;
 
 	public Long getId() {
 		return Id;
@@ -80,9 +82,17 @@ public class Request {
 		this.tourItem = tourItem;
 	}
 
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted( boolean deleted ) {
+		this.deleted = deleted;
+	}
+
 	@Override
 	public String toString() {
-		return "Request [Id=" + Id + ", clients=" + clients + ", dateTime=" + dateTime + ", tourItem=" + tourItem + ", status=" + status + "]";
+		return "Request [Id=" + Id + ", clients=" + clients + ", dateTime=" + dateTime + ", tourItem=" + tourItem + ", status=" + status + ", deleted=" + deleted + "]";
 	}
 
 }
