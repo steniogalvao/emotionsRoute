@@ -1,15 +1,18 @@
 package br.com.vsgdev.emotionsRoute.service;
 
-import br.com.vsgdev.emotionsRoute.exception.NotFoundEntity;
+import java.util.Optional;
+
+import javax.ws.rs.BadRequestException;
+
 import br.com.vsgdev.emotionsRoute.model.Transfer;
 
 public interface TransferService {
 
-	Transfer get(Long id) throws NotFoundEntity;
+	Optional<Transfer> get(Long id) ;
 
-	void delete(Long id) throws NotFoundEntity;
+	void delete(Long id) throws BadRequestException;
 
-	Transfer put(Transfer transfer) throws NotFoundEntity;
+	Transfer put(Transfer transfer) throws BadRequestException;
 
 	Transfer save(Transfer transfer);
 
