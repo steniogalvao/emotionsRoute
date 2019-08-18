@@ -2,7 +2,7 @@
 
 INSERT INTO agency (id, deleted, email, name, password, rate, user_role, user_type, address_id, cnpj) VALUES(1, 0, 'agency@agency.com', 'agency', 'pass', 0, 'ADMIN','AGENCY', 1, '123879871231');
 INSERT INTO person (id, deleted, email, name, password, rate, user_role, user_type, address_id, doc_number, doc_type) VALUES(2, 0, 'steniogalvao@gmail.com', 'stenio galvao', 'realSeriousPassword$1', 0, 'ADMIN','PERSON', 2, '12345678985', 'CPF');
-INSERT INTO equipament (id, deleted, value, description, name, rented) VALUES(3, 0, 50.50, 'gopro 7', 'gopro', 0);
+INSERT INTO equipament (id, deleted, value, responsable_id, description, name, rented) VALUES(1, 0, 50.50, 1, 'gopro 7', 'gopro', 0);
 INSERT INTO user_phones (user_id, phones) VALUES(1, '17823991');
 INSERT INTO user_phones (user_id, phones) VALUES(2, '++558688888888');
 INSERT INTO user_phones (user_id, phones) VALUES(2, '+400545645645');

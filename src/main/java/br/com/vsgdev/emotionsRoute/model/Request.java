@@ -28,13 +28,17 @@ public class Request {
 	@ElementCollection
 	private List<Person> clients = new ArrayList<>();
 
+	private int adults;
+
+	private int children;
+
 	@DateTimeFormat
 	@NotNull
 	private LocalDateTime dateTime;
 
 	@OneToOne
 	@NotNull
-	private TourItem tourItem;
+	private Payable item;
 
 	@Enumerated( EnumType.STRING )
 	@NotNull
@@ -74,12 +78,12 @@ public class Request {
 		this.status = status;
 	}
 
-	public TourItem getTourItem() {
-		return tourItem;
+	public Payable getItem() {
+		return item;
 	}
 
-	public void setTourItem( TourItem tourItem ) {
-		this.tourItem = tourItem;
+	public void setItem( Payable item ) {
+		this.item = item;
 	}
 
 	public boolean isDeleted() {
@@ -90,9 +94,25 @@ public class Request {
 		this.deleted = deleted;
 	}
 
+	public int getAdults() {
+		return adults;
+	}
+
+	public void setAdults( int adults ) {
+		this.adults = adults;
+	}
+
+	public int getChildren() {
+		return children;
+	}
+
+	public void setChildren( int children ) {
+		this.children = children;
+	}
+
 	@Override
 	public String toString() {
-		return "Request [Id=" + Id + ", clients=" + clients + ", dateTime=" + dateTime + ", tourItem=" + tourItem + ", status=" + status + ", deleted=" + deleted + "]";
+		return "Request [Id=" + Id + ", clients=" + clients + ", adults=" + adults + ", children=" + children + ", dateTime=" + dateTime + ", item=" + item + ", status=" + status + ", deleted=" + deleted + "]";
 	}
 
 }

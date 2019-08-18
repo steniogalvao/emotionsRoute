@@ -1,8 +1,6 @@
 package br.com.vsgdev.emotionsRoute.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
@@ -18,10 +16,6 @@ public class TourItem extends Payable {
 
 	@NotNull
 	private String includedDescription;
-
-	@NotNull
-	@OneToOne( fetch = FetchType.EAGER, cascade = CascadeType.DETACH )
-	private User responsable;
 
 	public Tour getTour() {
 		return tour;
@@ -47,17 +41,9 @@ public class TourItem extends Payable {
 		this.includedDescription = includeDescription;
 	}
 
-	public User getResponsable() {
-		return responsable;
-	}
-
-	public void setResponsable( User responsable ) {
-		this.responsable = responsable;
-	}
-
 	@Override
 	public String toString() {
-		return "TourItem [tour=" + tour + ", duration=" + duration + ", includedDescription=" + includedDescription + ", responsable=" + responsable + "]";
+		return "TourItem [tour=" + tour + ", duration=" + duration + ", includedDescription=" + includedDescription + "]";
 	}
 
 }
