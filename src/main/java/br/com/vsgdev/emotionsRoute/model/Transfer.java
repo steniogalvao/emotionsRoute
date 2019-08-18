@@ -3,13 +3,20 @@ package br.com.vsgdev.emotionsRoute.model;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
 
 import br.com.vsgdev.emotionsRoute.enums.TransferType;
 
 @Entity
-public class Transfer extends Payable {
+public class Transfer {
+
+	@Id
+	@GeneratedValue( strategy = GenerationType.SEQUENCE )
+	private Long id;
 
 	@Enumerated( EnumType.STRING )
 	private TransferType transferType;
@@ -22,6 +29,16 @@ public class Transfer extends Payable {
 
 	@NotEmpty
 	private String destiny;
+
+	private boolean deleted;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId( Long id ) {
+		this.id = id;
+	}
 
 	public TransferType getTransferType() {
 		return transferType;
@@ -55,9 +72,17 @@ public class Transfer extends Payable {
 		this.destiny = destiny;
 	}
 
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted( boolean deleted ) {
+		this.deleted = deleted;
+	}
+
 	@Override
 	public String toString() {
-		return "Transfer [transferType=" + transferType + ", tour=" + tour + ", origin=" + origin + ", destiny=" + destiny + "]";
+		return "Transfer [id=" + id + ", transferType=" + transferType + ", tour=" + tour + ", origin=" + origin + ", destiny=" + destiny + ", deleted=" + deleted + "]";
 	}
 
 }
