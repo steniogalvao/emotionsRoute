@@ -4,20 +4,32 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
+@Entity
 public class TransferItem extends Payable {
 
 	/**
 	 * Number of people allowed
 	 */
+	@NotNull
 	private int capacity;
 
 	@DateTimeFormat
 	private LocalDateTime dateTime;
 
+	@NotEmpty
+	@OneToMany
 	private List<User> users = new ArrayList<>();
 
+	@NotNull
+	@OneToOne
 	private Transfer transfer;
 
 	public int getCapacity() {
